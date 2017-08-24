@@ -1,0 +1,8 @@
+#set($firstLevel = "markercluster")
+#set($secondLevel = "markercluster_daily")
+
+#parse("/basic_model/header.vm")
+
+#parse("/basic_model/footer_js.vm")
+
+#parse("/basic_model/footer.vm")

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zoom.iplocation.dao.IpLocationDao">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<select id="queryLal" resultType="ZmIpDetail"
+		parameterType="com.zoom.iplocation.request.MapLevelsRequest">
+        <![CDATA[
+        select latitude,longitude from zmlog.zm_tm_ip_detail_#{searchDate} where city!='' 
+        and (latitude between #{sourtheastLat} and #{northwestLat}) 
+        and (longitude between #{northwestLng} and #{sourtheastLng});
+        ]]>
+	</select>
+	<select id="queryCity" resultType="ZmIpDetail"
+		parameterType="com.zoom.iplocation.request.MapLevelsRequest">
+        <![CDATA[
+        select MIN(b.latitude) as latitude,MIN(b.longitude) as longitude,a.city,count(a.ip_addr) as ip_count 
+        from zmlog.zm_tm_ip_detail_#{searchDate} as a 
+        LEFT JOIN zmlog.zm_city_location as b on a.city=b.city 
+        where a.city!='' 
+        and (a.latitude between #{sourtheastLat} and #{northwestLat}) 
+        and (a.longitude between #{northwestLng} and #{sourtheastLng}) 
+        group by a.city;
+        ]]>
+	</select>
+	<select id="queryCountry" resultType="ZmIpDetail" parameterType="string">
+        <![CDATA[
+        select MIN(b.latitude) as latitude,MIN(b.longitude) as longitude,a.cn,count(a.ip_addr) as ip_count 
+        from zmlog.zm_tm_ip_detail_#{searchDate} as a 
+        LEFT JOIN zmlog.zm_cn_location as b ON a.cn=b.cn 
+        where a.cn!=''
+        group by a.cn;
+        ]]>
+	</select>
+	<select id="queryLalGroup" resultType="ZmIpDetail"
+		parameterType="com.zoom.iplocation.request.MapLevelsRequest">
+        <![CDATA[
+		select latitude,longitude,count(*) as ip_count from zmlog.zm_tm_ip_detail_#{searchDate} where city!='' 
+		and (latitude between #{sourtheastLat} and #{northwestLat}) 
+		and (longitude between #{northwestLng} and #{sourtheastLng}) 
+		group by latitude,longitude;
+        ]]>
+	</select>
+	<select id="queryLD3" resultType="ZmIpDetail" parameterType="string">
+        <![CDATA[
+        select MIN(b.latitude) as latitude,MIN(b.longitude) as longitude,a.city,count(a.ip_addr) as ip_count 
+        from zmlog.zm_tm_ip_detail_#{searchDate} as a 
+        LEFT JOIN zmlog.zm_city_location as b on a.city=b.city 
+        where a.city!='' group by a.city;
+        ]]>
+	</select>
+</mapper>

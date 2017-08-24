@@ -1,0 +1,34 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element" align="center">
+                    <span>
+                        <img alt="image" class="img-circle" src="/resources/css/images/zoom_logo.png"/>
+                    </span>
+                    <!--<span class="block m-t-xs">
+                        <strong class="font-bold">ZOOM</strong>
+                    </span>-->
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <li #if($firstLevel=="markercluster") class="active" #end>
+                <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <span class="nav-label">markercluster</span> <span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li #if($secondLevel=="markerclusterDaily") class="active" #end><a href="/markercluster">markercluster daily</a></li>
+                </ul>
+            </li>
+            <li #if($firstLevel=="heatmap") class="active" #end>
+                <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <span class="nav-label">heatmap</span><span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li #if($secondLevel=="heatmapDaily") class="active" #end><a href="/heatmap">heatmap daily</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

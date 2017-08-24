@@ -1,0 +1,94 @@
+.lay-left .c-logo {
+  background: url(http://wd.geilicdn.com/4321a144c715095a1d5e984c6ada52d9.png) no-repeat center center;
+  background-color: #357ca5;
+  height: 50px;
+}
+.lay-left .c-apps {
+	background-image: linear-gradient(-180deg, #222D32 0%, #102633 100%);
+   	color: #ffffff;
+}
+.lay-left .c-apps .ico {
+  background: 13px center no-repeat;
+  height: 100%;
+  line-height: 58px;
+  text-indent: 55px;
+  font-size: 16px;
+  position: relative;
+}
+.lay-left .c-apps .ico i {
+  position: absolute;
+  right: 19px;
+  top: 21px;
+}
+.lay-left .c-apps .ico a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.lay-left .c-apps ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: none;
+}
+.lay-left .c-menus {
+  background: #222D32;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #B8C7CE;
+  font-size: 14px;
+}
+.lay-left .c-menus i {
+  margin-right: 14px;
+}
+.lay-left .c-menus li {
+  height: 44px;
+  line-height: 44px;
+  text-indent: 10px;
+  position: relative;
+}
+.lay-left .c-menus .ico {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+.lay-left .c-menus .level-2 {
+  background-color: #2C3B41;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+.lay-left .c-menus .level-2 .circl-dot {
+  background-color: #fff;
+  width: 7px;
+  height: 7px;
+  border-radius: 7px;
+  display: inline-block;
+  margin-right: 10px;
+  opacity: 0;
+}
+.lay-left .c-menus .level-2 .selected .circl-dot {
+  opacity: 1;
+}
+.lay-left .c-menus .level-2 li {
+  height: 31px;
+  line-height: 31px;
+  text-indent: 37px;
+}
+.lay-left .c-menus .level-2 li.selected {
+  color: #fff;
+}
+.lay-left .c-menus .level-2 a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  color: inherit;
+}
+.lay-left .c-menus > .selected {
+  background-color: #2C3B41;
+  color: #fff;
+}

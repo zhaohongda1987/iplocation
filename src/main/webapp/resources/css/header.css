@@ -1,0 +1,120 @@
+/*--------共用部分--------*/
+body {
+    background-color: #e7ecf3 !important;
+}
+.bgfff {
+    background-color: #fff;
+}
+.btn-primary {
+    background-color: #3C8DBC;
+}
+a,
+a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+.panel{
+	position:relative;
+}
+
+/**-----布局--------**/
+.lay-main {
+    position: relative;
+}
+.lay-left {
+    width: 230px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+    background-color: #222D32;
+}
+.lay-right {
+    margin-left: 230px;
+}
+#layMain.layHideLeft .lay-left {
+    display: none;
+}
+#layMain.layHideLeft .lay-right {
+    margin-left: 0;
+}
+/*------title--------*/
+.lay-title {
+    position: relative;
+    height: 26px;
+    padding: 17px 23px;
+    box-sizing: content-box;
+    text-indent: 14px;
+    font-size: 20px;
+    color: #3C8DBC;
+}
+.lay-title .line {
+    position: absolute;
+    left: 23px;
+    top: 18px;
+    width: 4px;
+    height: 26px;
+    background-color: #3C8DBC;
+}
+/*------search------*/
+.lay-search {
+    padding: 10px 23px 23px;
+    position: relative;
+    color: #343434;
+}
+.lay-search select {
+    min-width: 160px !important;
+}
+.lay-search .c-appinfo {
+    padding-left: 15px;
+}
+.lay-search .c-appinfo select {
+    margin-right: 20px;
+}
+.lay-search .c-time {
+    position: absolute;
+    right: 23px;
+    top: 10px;
+}
+.lay-search .c-time .btn {
+    font-weight: normal;
+    padding: 6px 8px;
+}
+/*-------内容页------------*/
+.lay-content {
+    padding: 20px;
+}
+.lay-content .panel {
+    border: none;
+    border-bottom: solid 1px #F4F4F4;
+}
+.lay-content .panel-heading {
+    padding: 0;
+    height: 41px;
+    line-height: 41px;
+    background-color: #fff;
+    border-bottom: solid 1px #F4F4F4;
+}
+.lay-content .panel-heading span {
+    padding-left: 14px;
+    color: #5E5E5E;
+}
+.lay-content .panel-heading a {
+    display: inline-block;
+    height: 100%;
+    line-height: 35px;
+    padding: 0 30px;
+    color: #5E5E5E;
+    text-decoration: none;
+    font-weight: bold;
+    box-sizing: border-box;
+    border-top: solid 3px #fff;
+    float: left;
+}
+.lay-content .panel-heading .active {
+    height: 41px;
+    margin-bottom: -1px;
+    border-top: solid 3px #3C8DBC;
+    color: #3C8DBC;
+    background: -webkit-linear-gradient(top, rgba(60, 141, 188, 0.15), #ffffff);
+}

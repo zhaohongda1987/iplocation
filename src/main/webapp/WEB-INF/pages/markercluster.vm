@@ -1,0 +1,70 @@
+#set($firstLevel = "markercluster")
+#set($secondLevel = $!{nav.sl})
+
+#parse("/basic_model/header.vm")
+<link rel="stylesheet" href="/resources/css/markercluster/MarkerCluster.css" />
+<link rel="stylesheet" href="/resources/css/markercluster/MarkerCluster.Default.css" />
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+            	<div class="div-search" >
+                	<label class="search-label" style="font-size:large">Server group:</label>
+					<select class="search-select" name="serverSelect" id="serverSelect">
+						<option>all server group</option>
+						<option>server group 1</option>
+						<option>server group 2</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label class="search-label" style="font-size:large">Date:</label>
+                	<input type="text" data-provide="datepicker" id="startDate" name="startDate" value="$!{startDate}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	<label class="search-label" style="font-size:large">IP:</label>
+                	<input type="text" id="ipAddr" name="ipAddr" />&nbsp;&nbsp;
+                	<button type="button" class="btn btn-search-comment">submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+        	<div class="ibox float-e-margins">
+				<div id="progress">
+					<div id="progress-bar"></div>
+				</div>
+    			<div class="ibox-content" id="map-canvas">
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+<div id="map-cover"></div>
+#parse("/basic_model/footer_js.vm")
+<script>
+	var ipData = ${ipData};
+	var date = new Date();
+	date = new Date(date.getTime() - 86400000*2);
+	$("#startDate").datepicker(
+	    	option = {
+				showMonthAfterYear: true,
+	    		changeMonth: true,
+	    		changeYear: true,
+				format: 'yyyy-mm-dd',
+				showOnFocus: true,
+				autoclose: true,
+				endDate: "-2d",
+				startDate: "-16d"
+			}
+	);
+	var yy = date.getFullYear(), mm = (date.getMonth() + 1).toString(), dd = date.getDate().toString();
+    if (mm.length == 1) {
+    	mm = '0' + mm;
+    }
+    if (dd.length == 1) {
+        dd = '0' + dd;
+    }
+    var dateStr = yy+"-"+mm+"-"+dd;
+	$('#startDate').val(dateStr).trigger('change');
+	var selectDate = $('#startDate').val() || '';
+</script>
+
+<script src="/resources/js/markercluster/leaflet.markercluster-src.js"></script>
+<script src="/resources/js/markerclusterwork.js" defer></script>
+#parse("/basic_model/footer.vm")

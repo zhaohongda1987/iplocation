@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Geo location</title>
+	<link href="/resources/css/main.css" rel="stylesheet" />
+    <link href="/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="/resources/css/bootstrap-slider/bootstrap-slider.css" rel="stylesheet" />
+
+    <link href="/resources/css/font-awesome/font-awesome.min.css" rel="stylesheet" />
+    <!-- datepicker-->
+    <link rel="stylesheet" type="text/css" href="/resources/css/datepicker/bootstrap-datepicker.min.css" />
+    <!-- leaflet -->
+    <link rel="stylesheet" href="/resources/css/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin="" />
+    <link rel="stylesheet" href="/resources/js/leaflet/fullscreen/Control.FullScreen.css" >
+    <!-- Toastr style -->
+    <link href="/resources/css/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="/resources/css/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="/resources/css/animate.css" rel="stylesheet">
+    <link href="/resources/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div id="wrapper">
+    #parse("/basic_model/navigator.vm")
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header" style="padding-left: 25px">
+                    <h2 style="font-size:xx-large">Geo location</h2>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">welcome</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
