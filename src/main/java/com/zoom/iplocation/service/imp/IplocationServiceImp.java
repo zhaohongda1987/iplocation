@@ -45,7 +45,7 @@ public class IplocationServiceImp implements IpLocationService {
 		List<ZmIpDetail> zmIpDetails = new ArrayList<ZmIpDetail>();
 		if (request.getZoomLevel() < 11) {
 			zmIpDetails = ipLocationDao.queryLD3(request);
-		} else if (request.getZoomLevel() < 13 && request.getZoomLevel() >= 11) {
+		} else if (request.getZoomLevel() < 14 && request.getZoomLevel() >= 11) {
 			zmIpDetails = ipLocationDao.queryLalGroup(request);
 		} else {
 			zmIpDetails = ipLocationDao.queryLal(request);

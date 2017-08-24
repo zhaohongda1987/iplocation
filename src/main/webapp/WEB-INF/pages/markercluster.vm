@@ -15,11 +15,13 @@
 						<option>all server group</option>
 						<option>server group 1</option>
 						<option>server group 2</option>
-					</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</select>&nbsp;&nbsp;
 					<label class="search-label" style="font-size:large">Date:</label>
-                	<input type="text" data-provide="datepicker" id="startDate" name="startDate" value="$!{startDate}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	<input type="text" data-provide="datepicker" id="startDate" name="startDate" value="$!{startDate}" />&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">IP:</label>
                 	<input type="text" id="ipAddr" name="ipAddr" />&nbsp;&nbsp;
+                	<label class="search-label" style="font-size:large">Meeting ID:</label>
+                	<input type="text" id="meetingId" name="meetingId" />&nbsp;&nbsp;
                 	<button type="button" class="btn btn-search-comment">submit</button>
                 </div>
             </div>

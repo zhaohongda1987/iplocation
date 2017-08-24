@@ -108,8 +108,20 @@ map.on('moveend', function changeZoomLevel() {
 		if (oldZoomLevel >= 11) {
 			update();
 		}
-	} else {
+	} 
+	if(newZoomLevel >= 11 && newZoomLevel < 14) {
 		if (oldZoomLevel < 11) {
+			update();
+		}
+		if (oldZoomLevel >= 14) {
+			update();
+		}
+		if (newZoomLevel == oldZoomLevel) {
+			update();
+		}
+	}
+	if(newZoomLevel >= 14) {
+		if (oldZoomLevel < 14) {
 			update();
 		}
 		if (newZoomLevel == oldZoomLevel) {
@@ -133,6 +145,7 @@ function update() {
 	var zoomLevels = map.getZoom();
 	var selectDate = $('#startDate').val() || '';
 	var ipAddr = $('#ipAddr').val() || '';
+	var meetingId = $('#meetingId').val() || '';
 	var data = {
 		northwestLng : bounds.getWest(),
 		sourtheastLat : bounds.getSouth(),
@@ -140,7 +153,8 @@ function update() {
 		northwestLat : bounds.getNorth(),
 		zoomLevel : zoomLevels,
 		searchDate : selectDate,
-		ipAddr : ipAddr
+		ipAddr : ipAddr,
+		meetingId : meetingId
 	}
 	$.ajax({
 		url : "/markerclusterajax",

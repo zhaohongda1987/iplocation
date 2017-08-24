@@ -124,6 +124,7 @@ function update() {
 	var zoomLevels = map.getZoom();
 	var selectDate = $('#startDate').val() || '';
 	var ipAddr = $('#ipAddr').val() || '';
+	var meetingId = $('#meetingId').val() || '';
 	var data = {
 		northwestLng : bounds.getWest(),
 		sourtheastLat : bounds.getSouth(),
@@ -131,7 +132,7 @@ function update() {
 		northwestLat : bounds.getNorth(),
 		zoomLevel : zoomLevels,
 		searchDate : selectDate,
-		ipAddr : ipAddr
+		meetingId : meetingId
 	}
 	$.ajax({
 		url : "/heatmapworkajax",

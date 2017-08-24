@@ -8,6 +8,7 @@ public class MapLevelsRequest {
 	private Integer zoomLevel;
 	private String searchDate;
 	private String ipAddr;
+	private String meetingId;
 	public Double getNorthwestLng() {
 		return northwestLng;
 	}
@@ -49,5 +50,11 @@ public class MapLevelsRequest {
 	}
 	public void setIpAddr(String ipAddr) {
 		this.ipAddr = ipAddr;
+	}
+	public String getMeetingId() {
+		return meetingId;
+	}
+	public void setMeetingId(String meetingId) {
+		this.meetingId = meetingId;
 	}
 }

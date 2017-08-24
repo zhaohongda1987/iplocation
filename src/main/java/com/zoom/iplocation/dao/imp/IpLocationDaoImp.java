@@ -23,6 +23,9 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
 		}
+		if (StringUtils.isNotBlank(request.getMeetingId())) {
+			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
+		}
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
 		for (Map<String, Object> row : list) {
@@ -59,6 +62,9 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
 		}
+		if (StringUtils.isNotBlank(request.getMeetingId())) {
+			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
+		}
 		sql = sql + "		group by latitude,longitude";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
@@ -77,13 +83,15 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 	}
 
 	@Override
-	public List<ZmIpDetail> queryLD3(MapLevelsRequest request) throws Exception{
+	public List<ZmIpDetail> queryLD3(MapLevelsRequest request) throws Exception {
 		String sql = "select MIN(b.latitude) as latitude,MIN(b.longitude) as longitude,a.city,count(a.ip_addr) as ip_count \r\n"
 				+ "        from zmlog.zm_tm_ip_detail_" + request.getSearchDate() + " as a \r\n"
-				+ "        LEFT JOIN zmlog.zm_city_location as b on a.city=b.city \r\n"
-				+ "        where a.city!=''";
+				+ "        LEFT JOIN zmlog.zm_city_location as b on a.city=b.city \r\n" + "        where a.city!=''";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and a.ip_addr='" + request.getIpAddr() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getMeetingId())) {
+			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
 		}
 		sql = sql + " group by a.city";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
