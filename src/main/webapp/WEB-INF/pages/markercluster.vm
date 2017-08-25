@@ -42,7 +42,7 @@
 <script>
 	var ipData = ${ipData};
 	var date = new Date();
-	date = new Date(date.getTime() - 86400000*2);
+	date = new Date(date.getTime() - 86400000*3);
 	$("#startDate").datepicker(
 	    	option = {
 				showMonthAfterYear: true,
@@ -51,8 +51,8 @@
 				format: 'yyyy-mm-dd',
 				showOnFocus: true,
 				autoclose: true,
-				endDate: "-2d",
-				startDate: "-15d"
+				endDate: "-3d",
+				startDate: "-16d"
 			}
 	);
 	var yy = date.getFullYear(), mm = (date.getMonth() + 1).toString(), dd = date.getDate().toString();

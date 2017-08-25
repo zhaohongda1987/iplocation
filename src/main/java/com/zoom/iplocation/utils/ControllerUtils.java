@@ -16,7 +16,7 @@ public class ControllerUtils {
 		if (StringUtils.isNotBlank(request.getSearchDate())) {
 			request.setSearchDate(DateFormatUtils.getYYYYmmDD(request.getSearchDate()));
 		} else {
-			String basicDate = DateFormatUtils.getLast2Day();
+			String basicDate = DateFormatUtils.getBasicDay();
 			request.setSearchDate(DateFormatUtils.getYYYYmmDD(basicDate));
 		}
 		

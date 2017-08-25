@@ -18,11 +18,11 @@ public class DateFormatUtils {
 		}
 	}
 
-	public static String getLast2Day() {
+	public static String getBasicDay() {
 		Date date = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(Calendar.DAY_OF_MONTH, -2);
+		calendar.add(Calendar.DAY_OF_MONTH, -3);
 		date = calendar.getTime();
 		return sdf.format(date);
 	}
