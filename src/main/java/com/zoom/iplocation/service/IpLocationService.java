@@ -7,7 +7,7 @@ import com.zoom.iplocation.request.MapLevelsRequest;
 
 public interface IpLocationService {
 
-	public JSONArray getMaskcanvas(String date) throws Exception;
+	public JSONArray getMaskcanvas(MapLevelsRequest request) throws Exception;
 	
 	public JSONObject getMarkercluster(MapLevelsRequest request) throws Exception;
 	

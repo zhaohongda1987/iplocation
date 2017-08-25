@@ -48,7 +48,7 @@
 				showOnFocus: true,
 				autoclose: true,
 				endDate: "-2d",
-				startDate: "-16d"
+				startDate: "-15d"
 			}
 	);
 	var date = new Date();

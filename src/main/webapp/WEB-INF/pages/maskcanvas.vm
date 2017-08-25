@@ -2,8 +2,6 @@
 #set($secondLevel = $!{nav.sl})
 
 #parse("/basic_model/header.vm")
-<link rel="stylesheet" href="/resources/css/markercluster/MarkerCluster.css" />
-<link rel="stylesheet" href="/resources/css/markercluster/MarkerCluster.Default.css" />
 
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -28,9 +26,6 @@
         </div>
         <div class="ibox float-e-margins">
         	<div class="ibox float-e-margins">
-				<div id="progress">
-					<div id="progress-bar"></div>
-				</div>
     			<div class="ibox-content" id="map-canvas">
     			</div>
     		</div>
@@ -40,7 +35,6 @@
 <div id="map-cover"></div>
 #parse("/basic_model/footer_js.vm")
 <script>
-	var ipData = ${ipData};
 	var date = new Date();
 	date = new Date(date.getTime() - 86400000*2);
 	$("#startDate").datepicker(
@@ -67,6 +61,7 @@
 	var selectDate = $('#startDate').val() || '';
 </script>
 
-<script src="/resources/js/markercluster/leaflet.markercluster-src.js"></script>
-<script src="/resources/js/markerclusterwork.js" defer></script>
+<script src="/resources/js/maskCanvas/QuadTree.js"></script>
+<script src="/resources/js/maskCanvas/L.GridLayer.MaskCanvas.js"></script>
+<script src="/resources/js/maskcanvaswork.js" async defer></script>
 #parse("/basic_model/footer.vm")

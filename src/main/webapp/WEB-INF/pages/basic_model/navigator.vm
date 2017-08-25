@@ -28,6 +28,13 @@
                     <li #if($secondLevel=="heatmapDaily") class="active" #end><a href="/heatmap">heatmap daily</a></li>
                 </ul>
             </li>
+            <li #if($firstLevel=="pointmap") class="active" #end>
+                <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <span class="nav-label">pointmap</span><span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li #if($secondLevel=="searchMeeting") class="active" #end><a href="/maskcanvas">search meeting</a></li>
+                </ul>
+            </li>
         </ul>
 
     </div>

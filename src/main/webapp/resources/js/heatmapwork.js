@@ -123,6 +123,11 @@ function update() {
 	// bounds.getWest(), bounds.getSouth(), bounds.getEast(),bounds.getNorth()
 	var zoomLevels = map.getZoom();
 	var selectDate = $('#startDate').val() || '';
+	if (selectDate == '') {
+		alert("date should not null");
+		layer.close(index);
+		return;
+	}
 	var ipAddr = $('#ipAddr').val() || '';
 	var meetingId = $('#meetingId').val() || '';
 	var data = {

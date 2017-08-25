@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.zoom.iplocation.dao.IpLocationDao;
 import com.zoom.iplocation.entity.ZmIpDetail;
@@ -20,11 +19,9 @@ public class IplocationServiceImp implements IpLocationService {
 	@Autowired
 	private IpLocationDao ipLocationDao;
 
-	@Transactional
-	public JSONArray getMaskcanvas(String date) throws Exception {
+	public JSONArray getMaskcanvas(MapLevelsRequest request) throws Exception {
 		JSONArray result = new JSONArray();
-		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(date);
-		GeoJsonUtils.toGeoJson(zmIpDetails);
+		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryLal(request);
 		for (ZmIpDetail zmIpDetail : zmIpDetails) {
 			JSONArray oneLal = new JSONArray();
 			oneLal.put(zmIpDetail.getLatitude());

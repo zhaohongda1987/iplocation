@@ -18,8 +18,10 @@ public class IplocationServiceTest extends BaseTest {
 	
 	@Test
 	public void getLalByDateTest() {
+		MapLevelsRequest request = new MapLevelsRequest();
+		request.setSearchDate(DateFormatUtils.getLast2Day());
 		try {
-			System.out.println(ipLocationService.getMaskcanvas("2017-08-04"));
+			System.out.println(ipLocationService.getMaskcanvas(request));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

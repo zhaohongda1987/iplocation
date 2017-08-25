@@ -12,24 +12,31 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zoom.iplocation.request.MapLevelsRequest;
 import com.zoom.iplocation.service.IpLocationService;
 import com.zoom.iplocation.utils.ControllerUtils;
-import com.zoom.iplocation.utils.DateFormatUtils;
 
 @Controller
 public class IpLocationController {
 	@Autowired
 	private IpLocationService ipLocationService;
 
-	// @RequestMapping(value = "/maskcanvas", method = RequestMethod.GET)
-	// private ModelAndView getMaskcanvas() {
-	// ModelAndView mv = new ModelAndView("maskcanvas");
-	// try {
-	// mv.addObject("ipData", ipLocationService.getMaskcanvas("2017-08-04"));
-	// } catch (Exception e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// return mv;
-	// }
+	@RequestMapping(value = "/maskcanvas", method = RequestMethod.GET)
+	private ModelAndView getMaskcanvas() {
+		ModelAndView mv = new ModelAndView("maskcanvas");
+		return mv;
+	}
+
+	@RequestMapping(value = "/maskcanvasajax", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Object getMaskCanvasAjax(@RequestBody MapLevelsRequest request) {
+		JSONObject response = new JSONObject();
+		try {
+			request = ControllerUtils.getBasicMapLevelsRequest(request);
+			response.put("ipData", ipLocationService.getMaskcanvas(request));
+			response.put("status", true);
+		} catch (Exception e) {
+			response.put("status", false);
+		}
+		return response.toString();
+	}
 	//
 	// @RequestMapping(value = "/getgeojson", method = RequestMethod.GET)
 	// private ModelAndView getGeoJson() {
