@@ -21,6 +21,7 @@ public class IpLocationDaoTest extends BaseTest {
 		request.setNorthwestLng(239.47448730468753);
 		request.setSourtheastLat(33.03169299978312);
 		request.setSourtheastLng(243.86901855468753);
+		request.setSearchDate("20170822");
 		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryLal(request);
 		for (ZmIpDetail zmIpDetail : zmIpDetails) {
 			System.out.println(zmIpDetail.getLatitude());

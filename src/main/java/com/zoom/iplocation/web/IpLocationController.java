@@ -74,6 +74,7 @@ public class IpLocationController {
 			response.put("status", true);
 		} catch (Exception e) {
 			response.put("status", false);
+			System.out.println(e);
 		}
 		return response.toString();
 	}
