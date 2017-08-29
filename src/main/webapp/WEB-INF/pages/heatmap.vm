@@ -10,16 +10,16 @@
             	<div class="div-search" >
                 	<label class="search-label" style="font-size:large" >Server group:</label>
 					<select class="search-select" name="serverSelect" id="serverSelect">
-						<option>all</option>
-						<option>sy</option>
-						<option>am</option>
-						<option>gs</option>
-						<option>ny</option>
-						<option>tj</option>
-						<option>hk</option>
-						<option>mb</option>
-						<option>sc</option>
-						<option>sp</option>
+						<option>&nbsp;&nbsp;&nbsp;all&nbsp;&nbsp;</option>
+						<option value="sy">&nbsp;&nbsp;&nbsp;sy&nbsp;&nbsp;</option>
+						<option value="am">&nbsp;&nbsp;&nbsp;am&nbsp;&nbsp;</option>
+						<option value="gs">&nbsp;&nbsp;&nbsp;gs&nbsp;&nbsp;</option>
+						<option value="ny">&nbsp;&nbsp;&nbsp;ny&nbsp;&nbsp;</option>
+						<option value="tj">&nbsp;&nbsp;&nbsp;tj&nbsp;&nbsp;</option>
+						<option value="hk">&nbsp;&nbsp;&nbsp;hk&nbsp;&nbsp;</option>
+						<option value="mb">&nbsp;&nbsp;&nbsp;mb&nbsp;&nbsp;</option>
+						<option value="sc">&nbsp;&nbsp;&nbsp;sc&nbsp;&nbsp;</option>
+						<option value="sp">&nbsp;&nbsp;&nbsp;sp&nbsp;&nbsp;</option>
 					</select>&nbsp;&nbsp;
 					<label class="search-label" style="font-size:large">Date:</label>
                 	<input type="text" data-provide="datepicker" id="startDate" name="startDate" value="$!{startDate}" />&nbsp;&nbsp;
