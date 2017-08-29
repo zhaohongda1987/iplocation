@@ -1,6 +1,8 @@
 package com.zoom.iplocation.test;
 
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ public class IpLocationDaoTest extends BaseTest {
 	@Autowired
 	private IpLocationDao ipLocationDao;
 
+	private String ipPattern  = ".*\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.*";
 	@Test
 	public void testQueryLal() throws Exception {
 		MapLevelsRequest request = new MapLevelsRequest();
@@ -45,6 +48,21 @@ public class IpLocationDaoTest extends BaseTest {
 		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry("2017-08-04");
 		for (ZmIpDetail zmIpDetail : zmIpDetails) {
 			System.out.println(zmIpDetail.getLatitude());
+		}
+	}
+	
+	@Test
+	public void testQuerySdkAttendee() {
+		try {
+			List<Map<String, Object>> tmpList = ipLocationDao.querySdkAttendee("2017-08-26");
+			for(Map<String, Object> tmpMap: tmpList) {
+				String address = tmpMap.get("mmr_cmd_address").toString();
+				if (Pattern.matches(ipPattern, address)) {
+					System.out.println(address);
+				}
+			}
+		} catch(Exception e) {
+			System.err.println(e);
 		}
 	}
 }

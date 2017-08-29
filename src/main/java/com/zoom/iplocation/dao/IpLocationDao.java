@@ -1,10 +1,12 @@
 package com.zoom.iplocation.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.zoom.iplocation.entity.ZmIpDetail;
+import com.zoom.iplocation.entity.ZmZcServerGroup;
 import com.zoom.iplocation.request.MapLevelsRequest;
 
 public interface IpLocationDao {
@@ -18,4 +20,8 @@ public interface IpLocationDao {
 	List<ZmIpDetail> queryLalGroup(MapLevelsRequest request) throws Exception;
 	
 	List<ZmIpDetail> queryLD3(MapLevelsRequest request) throws Exception;
+	
+	List<Map<String, Object>> querySdkAttendee(String date) throws Exception;
+	
+	void insertServerGroupTmp(List<ZmZcServerGroup> zmZcServerGroupList) throws Exception;
 }

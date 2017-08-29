@@ -107,6 +107,10 @@ function update() {
 	}
 	var ipAddr = $('#ipAddr').val() || '';
 	var meetingId = $('#meetingId').val() || '';
+	var serverGroup = ('#serverSelect').val() || '';
+	if(serverGroup=='all') {
+		serverGroup="";
+	}
 	if (meetingId == '') {
 		alert("meeting id should not null");
 		layer.close(index);
@@ -120,7 +124,8 @@ function update() {
 		zoomLevel : zoomLevels,
 		searchDate : selectDate,
 		ipAddr : ipAddr,
-		meetingId : meetingId
+		meetingId : meetingId,
+		serverGroup: serverGroup
 	}
 	$.ajax({
 		url : "/maskcanvasajax",

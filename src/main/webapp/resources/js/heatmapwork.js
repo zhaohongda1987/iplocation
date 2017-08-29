@@ -130,6 +130,10 @@ function update() {
 	}
 	var ipAddr = $('#ipAddr').val() || '';
 	var meetingId = $('#meetingId').val() || '';
+	var serverGroup = ('#serverSelect').val() || '';
+	if(serverGroup=='all') {
+		serverGroup="";
+	}
 	var data = {
 		northwestLng : bounds.getWest(),
 		sourtheastLat : bounds.getSouth(),
@@ -137,7 +141,8 @@ function update() {
 		northwestLat : bounds.getNorth(),
 		zoomLevel : zoomLevels,
 		searchDate : selectDate,
-		meetingId : meetingId
+		meetingId : meetingId,
+		serverGroup: serverGroup
 	}
 	$.ajax({
 		url : "/heatmapworkajax",

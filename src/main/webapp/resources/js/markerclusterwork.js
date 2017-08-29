@@ -151,6 +151,10 @@ function update() {
 	}
 	var ipAddr = $('#ipAddr').val() || '';
 	var meetingId = $('#meetingId').val() || '';
+	var serverGroup = $('#serverSelect').val() || '';
+	if(serverGroup=='all') {
+		serverGroup="";
+	}
 	var data = {
 		northwestLng : bounds.getWest(),
 		sourtheastLat : bounds.getSouth(),
@@ -159,7 +163,8 @@ function update() {
 		zoomLevel : zoomLevels,
 		searchDate : selectDate,
 		ipAddr : ipAddr,
-		meetingId : meetingId
+		meetingId : meetingId,
+		serverGroup: serverGroup
 	}
 	$.ajax({
 		url : "/markerclusterajax",
