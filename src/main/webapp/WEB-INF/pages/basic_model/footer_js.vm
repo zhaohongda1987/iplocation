@@ -1,17 +1,17 @@
 <!-- Mainly scripts -->
-<script src="/resources/js/jquery/jquery-2.2.4.min.js"></script>
-<script src="/resources/js/bootstrap-slider/bootstrap-slider.js"></script>
-<script src="/resources/js/bootstrap/bootstrap.min.js"></script>
-<script src="/resources/js/ejs/ejs_production.js"></script>
-<script src="/resources/js/metisMenu/jquery.metisMenu.js"></script>
-<script src="/resources/js/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/resources/js/main.js"></script>
+<script src="/iplocation/resources/js/jquery/jquery-2.2.4.min.js"></script>
+<script src="/iplocation/resources/js/bootstrap-slider/bootstrap-slider.js"></script>
+<script src="/iplocation/resources/js/bootstrap/bootstrap.min.js"></script>
+<script src="/iplocation/resources/js/ejs/ejs_production.js"></script>
+<script src="/iplocation/resources/js/metisMenu/jquery.metisMenu.js"></script>
+<script src="/iplocation/resources/js/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/iplocation/resources/js/main.js"></script>
 
 <!-- jQuery UI -->
-<script src="/resources/js/jquery/jquery-ui.min.js"></script>
+<script src="/iplocation/resources/js/jquery/jquery-ui.min.js"></script>
 <!-- datepicker-->
-<script src="/resources/js/datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/iplocation/resources/js/datepicker/bootstrap-datepicker.min.js"></script>
 <!-- leaflet -->
-<script src="/resources/js/leaflet/leaflet-src.js" integrity="sha512-WXoSHqw/t26DszhdMhOXOkI7qCiv5QWXhH9R7CgvgZMHz1ImlkVQ3uNsiQKu5wwbbxtPzFXd1hK4tzno2VqhpA==" crossorigin=""></script>
-<script src="/resources/js/leaflet/fullscreen/Control.FullScreen.js"></script>
-<script src="/resources/js/layer/layer.js"></script>
+<script src="/iplocation/resources/js/leaflet/leaflet-src.js" integrity="sha512-WXoSHqw/t26DszhdMhOXOkI7qCiv5QWXhH9R7CgvgZMHz1ImlkVQ3uNsiQKu5wwbbxtPzFXd1hK4tzno2VqhpA==" crossorigin=""></script>
+<script src="/iplocation/resources/js/leaflet/fullscreen/Control.FullScreen.js"></script>
+<script src="/iplocation/resources/js/layer/layer.js"></script>

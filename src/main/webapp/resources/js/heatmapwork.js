@@ -130,7 +130,7 @@ function update() {
 	}
 	var ipAddr = $('#ipAddr').val() || '';
 	var meetingId = $('#meetingId').val() || '';
-	var serverGroup = ('#serverSelect').val() || '';
+	var serverGroup = $('#serverSelect').val() || '';
 	if(serverGroup=='all') {
 		serverGroup="";
 	}
@@ -145,7 +145,7 @@ function update() {
 		serverGroup: serverGroup
 	}
 	$.ajax({
-		url : "/heatmapworkajax",
+		url : "/iplocation/heatmapworkajax",
 		type : "POST",
 		data : JSON.stringify(data),
 		dataType : 'json',

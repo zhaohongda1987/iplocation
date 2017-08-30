@@ -2,8 +2,8 @@
 #set($secondLevel = $!{nav.sl})
 
 #parse("/basic_model/header.vm")
-<link rel="stylesheet" href="/resources/css/markercluster/MarkerCluster.css" />
-<link rel="stylesheet" href="/resources/css/markercluster/MarkerCluster.Default.css" />
+<link rel="stylesheet" href="/iplocation/resources/css/markercluster/MarkerCluster.css" />
+<link rel="stylesheet" href="/iplocation/resources/css/markercluster/MarkerCluster.Default.css" />
 
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -74,6 +74,6 @@
 	var selectDate = $('#startDate').val() || '';
 </script>
 
-<script src="/resources/js/markercluster/leaflet.markercluster-src.js"></script>
-<script src="/resources/js/markerclusterwork.js" defer></script>
+<script src="/iplocation/resources/js/markercluster/leaflet.markercluster-src.js"></script>
+<script src="/iplocation/resources/js/markerclusterwork.js" defer></script>
 #parse("/basic_model/footer.vm")

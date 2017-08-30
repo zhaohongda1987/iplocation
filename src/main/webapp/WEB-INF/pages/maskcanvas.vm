@@ -26,7 +26,7 @@
                 	<label class="search-label" style="font-size:large">IP:</label>
                 	<input type="text" id="ipAddr" name="ipAddr" />&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">Meeting ID:</label>
-                	<input type="text" id="meetingId" name="meetingId" />&nbsp;&nbsp;
+                	<input type="text" id="meetingId" name="meetingId" value="should not null" />&nbsp;&nbsp;
                 	<button type="button" class="btn btn-search-comment">submit</button>
                 </div>
             </div>
@@ -68,7 +68,7 @@
 	var selectDate = $('#startDate').val() || '';
 </script>
 
-<script src="/resources/js/maskCanvas/QuadTree.js"></script>
-<script src="/resources/js/maskCanvas/L.GridLayer.MaskCanvas.js"></script>
-<script src="/resources/js/maskcanvaswork.js" async defer></script>
+<script src="/iplocation/resources/js/maskCanvas/QuadTree.js"></script>
+<script src="/iplocation/resources/js/maskCanvas/L.GridLayer.MaskCanvas.js"></script>
+<script src="/iplocation/resources/js/maskcanvaswork.js" async defer></script>
 #parse("/basic_model/footer.vm")

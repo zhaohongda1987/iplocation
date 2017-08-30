@@ -72,6 +72,6 @@
 	var selectDate = $('#startDate').val() || '';
 </script>
 
-<script src="/resources/js/heatmap/leaflet-heat.js"></script>
-<script src="/resources/js/heatmapwork.js" defer></script>
+<script src="/iplocation/resources/js/heatmap/leaflet-heat.js"></script>
+<script src="/iplocation/resources/js/heatmapwork.js" defer></script>
 #parse("/basic_model/footer.vm")

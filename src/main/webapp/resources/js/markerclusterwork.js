@@ -167,7 +167,7 @@ function update() {
 		serverGroup: serverGroup
 	}
 	$.ajax({
-		url : "/markerclusterajax",
+		url : "/iplocation/markerclusterajax",
 		type : "POST",
 		data : JSON.stringify(data),
 		dataType : 'json',

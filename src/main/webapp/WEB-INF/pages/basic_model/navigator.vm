@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element" align="center">
                     <span>
-                        <img alt="image" class="img-circle" src="/resources/css/images/zoom_logo.png"/>
+                        <img alt="image" class="img-circle" src="/iplocation/resources/css/images/zoom_logo.png"/>
                     </span>
                     <!--<span class="block m-t-xs">
                         <strong class="font-bold">ZOOM</strong>
@@ -18,21 +18,21 @@
                 <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <span class="nav-label">markercluster</span> <span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li #if($secondLevel=="markerclusterDaily") class="active" #end><a href="/markercluster">markercluster daily</a></li>
+                    <li #if($secondLevel=="markerclusterDaily") class="active" #end><a href="/iplocation/markercluster">markercluster daily</a></li>
                 </ul>
             </li>
             <li #if($firstLevel=="heatmap") class="active" #end>
                 <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <span class="nav-label">heatmap</span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li #if($secondLevel=="heatmapDaily") class="active" #end><a href="/heatmap">heatmap daily</a></li>
+                    <li #if($secondLevel=="heatmapDaily") class="active" #end><a href="/iplocation/heatmap">heatmap daily</a></li>
                 </ul>
             </li>
             <li #if($firstLevel=="pointmap") class="active" #end>
                 <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> <span class="nav-label">pointmap</span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li #if($secondLevel=="searchMeeting") class="active" #end><a href="/maskcanvas">search meeting</a></li>
+                    <li #if($secondLevel=="searchMeeting") class="active" #end><a href="/iplocation/maskcanvas">search meeting</a></li>
                 </ul>
             </li>
         </ul>
