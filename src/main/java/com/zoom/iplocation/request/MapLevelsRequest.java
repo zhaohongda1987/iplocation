@@ -10,6 +10,7 @@ public class MapLevelsRequest {
 	private String ipAddr;
 	private String meetingId;
 	private String serverGroup;
+	private String accountId;
 	public Double getNorthwestLng() {
 		return northwestLng;
 	}
@@ -63,5 +64,11 @@ public class MapLevelsRequest {
 	}
 	public void setServerGroup(String serverGroup) {
 		this.serverGroup = serverGroup;
+	}
+	public String getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	}
 }

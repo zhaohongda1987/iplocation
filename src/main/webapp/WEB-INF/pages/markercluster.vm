@@ -10,7 +10,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-content">
             	<div class="div-search" >
-                	<label class="search-label" style="font-size:large">Server group:</label>
+                	<label class="search-label" style="font-size:large">DC:</label>
 					<select class="search-select" name="serverSelect" id="serverSelect">
 						<option>&nbsp;&nbsp;&nbsp;all&nbsp;&nbsp;</option>
 						<option value="sy">&nbsp;&nbsp;&nbsp;sy&nbsp;&nbsp;</option>
@@ -25,10 +25,12 @@
 					</select>&nbsp;&nbsp;
 					<label class="search-label" style="font-size:large">Date:</label>
                 	<input type="text" data-provide="datepicker" id="startDate" name="startDate" value="$!{startDate}" />&nbsp;&nbsp;
-                	<label class="search-label" style="font-size:large">IP:</label>
+                	<label class="search-label" style="font-size:large">IP(MMR/BCS):</label>
                 	<input type="text" id="ipAddr" name="ipAddr" />&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">Meeting ID:</label>
                 	<input type="text" id="meetingId" name="meetingId" />&nbsp;&nbsp;
+                	<label class="search-label" style="font-size:large">Account ID:</label>
+                	<input type="text" id="accountId" name="accountId" />&nbsp;&nbsp;
                 	<button type="button" class="btn btn-search-comment">submit</button>
                 </div>
             </div>

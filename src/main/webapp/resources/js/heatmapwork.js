@@ -131,6 +131,7 @@ function update() {
 	var ipAddr = $('#ipAddr').val() || '';
 	var meetingId = $('#meetingId').val() || '';
 	var serverGroup = $('#serverSelect').val() || '';
+	var accountId = $('#accountId').val() || '';
 	if(serverGroup=='all') {
 		serverGroup="";
 	}
@@ -142,7 +143,8 @@ function update() {
 		zoomLevel : zoomLevels,
 		searchDate : selectDate,
 		meetingId : meetingId,
-		serverGroup: serverGroup
+		serverGroup: serverGroup,
+		accountId: accountId
 	}
 	$.ajax({
 		url : "/iplocation/heatmapworkajax",

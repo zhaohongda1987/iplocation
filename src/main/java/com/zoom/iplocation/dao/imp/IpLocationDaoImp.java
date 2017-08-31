@@ -33,6 +33,9 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		if (StringUtils.isNotBlank(request.getServerGroup())) {
 			sql = sql + " and server_group='" + request.getServerGroup() + "'";
 		}
+		if (StringUtils.isNotBlank(request.getAccountId())) {
+			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+		}
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
 		for (Map<String, Object> row : list) {
@@ -75,6 +78,9 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		if (StringUtils.isNotBlank(request.getServerGroup())) {
 			sql = sql + " and server_group='" + request.getServerGroup() + "'";
 		}
+		if (StringUtils.isNotBlank(request.getAccountId())) {
+			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+		}
 		sql = sql + "		group by latitude,longitude";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
@@ -109,6 +115,9 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		}
 		if (StringUtils.isNotBlank(request.getServerGroup())) {
 			sql = sql + " and server_group='" + request.getServerGroup() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getAccountId())) {
+			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
 		}
 		sql = sql + " group by city,cn";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);

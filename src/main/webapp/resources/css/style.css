@@ -84,7 +84,7 @@ h5 {
 }
 .navbar-top-links li a {
   padding: 20px 10px;
-  min-height: 50px;
+  min-height: 20px;
 }
 .dropdown-menu {
   border: medium none;
@@ -3444,7 +3444,7 @@ video {
   padding: 0 20px;
 }
 .wrapper-content {
-  padding: 20px 10px 40px;
+  padding: 5px 5px 5px;
 }
 #page-wrapper {
   padding: 0 15px;
@@ -3754,7 +3754,7 @@ code {
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 15px 20px 20px 20px;
+  padding: 5px 5px 5px 5px;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;

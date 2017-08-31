@@ -66,6 +66,46 @@ map.on('exitFullscreen', function(){
 });
 
 L.control.layers(baseLayers, overlayLayers).addTo(map);
+
+//tool bar
+//var LayerToolbar = new L.ToolbarAction({
+//	toolbarIcon: {
+//		html: '',
+//		className: 'leaflet-layer-toolbar',
+//		tooltip: ''
+//	}
+//})
+//new L.Toolbar.Control({
+//	position: 'topleft',
+//	actions: [
+//        LayerToolbar
+//    ]
+//}).addTo(map);
+//$("#leaflet-layer-toolbar").click(function() {
+//	layer.open({
+//		type: 2,
+//		title: false,
+//		closeBtn: 0, //不显示关闭按钮
+//		shade: [0],
+//		area: ['340px', '215px'],
+//		offset: 'rb', //右下角弹出
+//		time: 2000, //2秒后自动关闭
+//		anim: 2,
+//		content: ['test/guodu.html', 'no'], //iframe的url，no代表不显示滚动条
+//		end: function(){ //此处用于演示
+//			layer.open({
+//				type: 2,
+//				title: '很多时候，我们想最大化看，比如像这个页面。',
+//				shadeClose: true,
+//				shade: false,
+//				maxmin: true, //开启最大化最小化按钮
+//				area: ['893px', '600px'],
+//				content: '//fly.layui.com/'
+//			});
+//		}
+//	});
+//});
+
 var coverageLayer;
 function translateData(data) {
 	if(coverageLayer != null) {
@@ -108,6 +148,7 @@ function update() {
 	var ipAddr = $('#ipAddr').val() || '';
 	var meetingId = $('#meetingId').val() || '';
 	var serverGroup = $('#serverSelect').val() || '';
+	var accountId = $('#accountId').val() || '';
 	if(serverGroup=='all') {
 		serverGroup="";
 	}
@@ -125,7 +166,8 @@ function update() {
 		searchDate : selectDate,
 		ipAddr : ipAddr,
 		meetingId : meetingId,
-		serverGroup: serverGroup
+		serverGroup: serverGroup,
+		accountId: accountId
 	}
 	$.ajax({
 		url : "/iplocation/maskcanvasajax",
