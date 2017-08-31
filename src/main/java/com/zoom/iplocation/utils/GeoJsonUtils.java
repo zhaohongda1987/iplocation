@@ -6,11 +6,15 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.zoom.iplocation.entity.ZmIpDetail;
 
 public class GeoJsonUtils {
 
+	private static Logger LOG = LoggerFactory.getLogger(GeoJsonUtils.class);
+			
 	public static JSONObject toGeoJson(List<ZmIpDetail> zmIpDetails) {
 		JSONObject featureCollection = new JSONObject();
 		try {
@@ -39,7 +43,7 @@ public class GeoJsonUtils {
 				featureCollection.put("features", featureList);
 			}
 		} catch (JSONException e) {
-			System.err.println("can't save json object: " + e.toString());
+			LOG.error("toGeoJson:", e);
 		}
 		return featureCollection;
 	}
@@ -59,7 +63,7 @@ public class GeoJsonUtils {
 				dataArray.put(oneData);
 			}
 		} catch (JSONException e) {
-			System.err.println("can't save json object: " + e.toString());
+			LOG.error("toJsonArray:", e);
 		}
 		result.put("dataarray", dataArray);
 		return result;

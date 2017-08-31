@@ -4,16 +4,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class DateFormatUtils {
 
 	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+	private static Logger LOG = LoggerFactory.getLogger(DateFormatUtils.class);
 
 	public static String getYYYYmmDD(String oldDate) {
 		try {
 			String[] dateArray = oldDate.split("-");
 			return dateArray[0] + dateArray[1] + dateArray[2];
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			LOG.error("getYYYYmmDD:", e);
 			return "20170804";
 		}
 	}

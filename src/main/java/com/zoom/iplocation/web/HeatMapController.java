@@ -1,6 +1,8 @@
 package com.zoom.iplocation.web;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,11 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zoom.iplocation.request.MapLevelsRequest;
 import com.zoom.iplocation.service.HeatMapService;
 import com.zoom.iplocation.utils.ControllerUtils;
-import com.zoom.iplocation.utils.DateFormatUtils;
 @Controller
 public class HeatMapController {
 	@Autowired
 	private HeatMapService heatMapService;
+	
+	private static Logger LOG = LoggerFactory.getLogger(HeatMapController.class);
 	
 	@RequestMapping(value = "/heatmap", method = RequestMethod.GET)
     private ModelAndView getHeatmapwork() {
@@ -27,7 +30,7 @@ public class HeatMapController {
 			mv.addObject("ipData", heatMapService.getHeatMap(request).toString());
 		} catch (Exception e) {
 			mv.addObject("ipData",  new JSONObject());
-			System.out.println(e.getMessage());
+			LOG.error("heatmap:", e);
 		}
 		return mv;
     }
@@ -42,6 +45,7 @@ public class HeatMapController {
 			response.put("status", true);
 		} catch (Exception e) {
 			response.put("status", false);
+			LOG.error("heatmapworkajax:", e);
 		}
 		return response.toString();
 	}
@@ -54,8 +58,7 @@ public class HeatMapController {
 			request = ControllerUtils.getBasicMapLevelsRequest(request);
 			mv.addObject("ipData", heatMapService.getHeatMap(request).toString());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("heatmapworkearth:", e);
 		}
 		return mv;
     }

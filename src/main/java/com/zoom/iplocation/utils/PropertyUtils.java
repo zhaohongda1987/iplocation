@@ -8,8 +8,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PropertyUtils {
 
+	private static Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
+			
 	public static Map<String, String> getProperty() {
 		Properties prop = new Properties();
 		Map<String, String> tmpMap = new HashMap<>();
@@ -25,7 +30,7 @@ public class PropertyUtils {
 			}
 			in.close();
 		} catch (Exception e) {
-			System.out.println(e);
+			LOG.error("getProperty:", e);
 		}
 		return tmpMap;
 	}

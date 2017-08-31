@@ -1,6 +1,8 @@
 package com.zoom.iplocation.web;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,8 @@ import com.zoom.iplocation.utils.ControllerUtils;
 public class IpLocationController {
 	@Autowired
 	private IpLocationService ipLocationService;
+	
+	private static Logger LOG = LoggerFactory.getLogger(IpLocationController.class);
 
 	@RequestMapping(value = "/maskcanvas", method = RequestMethod.GET)
 	private ModelAndView getMaskcanvas() {
@@ -33,6 +37,7 @@ public class IpLocationController {
 			response.put("ipData", ipLocationService.getMaskcanvas(request));
 			response.put("status", true);
 		} catch (Exception e) {
+			LOG.error("maskcanvasajax:", e);
 			response.put("status", false);
 		}
 		return response.toString();
@@ -59,7 +64,7 @@ public class IpLocationController {
 			mv.addObject("ipData", ipLocationService.getMarkercluster(request));
 		} catch (Exception e) {
 			mv.addObject("ipData", new JSONObject());
-			System.out.println(e.getMessage());
+			LOG.error("markercluster:", e);
 		}
 		return mv;
 	}
@@ -74,7 +79,7 @@ public class IpLocationController {
 			response.put("status", true);
 		} catch (Exception e) {
 			response.put("status", false);
-			System.out.println(e);
+			LOG.error("markerclusterajax:", e);
 		}
 		return response.toString();
 	}
@@ -87,8 +92,7 @@ public class IpLocationController {
 			request = ControllerUtils.getBasicMapLevelsRequest(request);
 			mv.addObject("ipData", ipLocationService.getMarkercluster(request));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("markerclusterearth:", e);
 		}
 		return mv;
 	}
