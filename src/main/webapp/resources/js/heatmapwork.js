@@ -61,7 +61,7 @@ map.on('enterFullscreen', function() {
 	document.getElementById("map-canvas").style.width = "100%";
 });
 map.on('exitFullscreen', function() {
-	document.getElementById("map-canvas").style.height = "78%";
+	document.getElementById("map-canvas").style.height = "84%";
 	document.getElementById("map-canvas").style.width = "99%";
 });
 
