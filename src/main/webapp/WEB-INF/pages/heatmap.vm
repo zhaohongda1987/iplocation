@@ -32,12 +32,10 @@
             </div>
         </div>
         <div class="ibox float-e-margins">
-        	<div class="ibox float-e-margins">
-				<div id="progress">
-					<div id="progress-bar"></div>
-				</div>
-    			<div class="ibox-content" id="map-canvas">
-    			</div>
+			<div id="progress">
+				<div id="progress-bar"></div>
+			</div>
+    		<div class="ibox-content" id="map-canvas">
     		</div>
     	</div>
     </div>
