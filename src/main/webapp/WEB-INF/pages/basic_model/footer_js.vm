@@ -14,5 +14,5 @@
 <!-- leaflet -->
 <script src="/iplocation/resources/js/leaflet/leaflet-src.js" integrity="sha512-WXoSHqw/t26DszhdMhOXOkI7qCiv5QWXhH9R7CgvgZMHz1ImlkVQ3uNsiQKu5wwbbxtPzFXd1hK4tzno2VqhpA==" crossorigin=""></script>
 <script src="/iplocation/resources/js/leaflet/fullscreen/Control.FullScreen.js"></script>
-<script src="/iplocation/resources/js/leaflet/toolbar/leaflet.toolbar.js"></script>
-<script src="/iplocation/resources/js/layer/layer.js"></script>
+<script src="/iplocation/resources/js/leaflet/easybutton/easy-button.js"></script>
+<script src="/iplocation/resources/js/layer/layui.js"></script>

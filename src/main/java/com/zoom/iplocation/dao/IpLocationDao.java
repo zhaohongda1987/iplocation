@@ -13,7 +13,7 @@ public interface IpLocationDao {
 
 	List<ZmIpDetail> queryLal(MapLevelsRequest request) throws Exception;
 	
-	List<ZmIpDetail> queryCountry(@Param("searchDate") String searchDate) throws Exception;
+	List<ZmIpDetail> queryCountry(MapLevelsRequest request) throws Exception;
 	
 	List<ZmIpDetail> queryCity(MapLevelsRequest request) throws Exception;
 	

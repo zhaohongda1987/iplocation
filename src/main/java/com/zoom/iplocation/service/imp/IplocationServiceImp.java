@@ -33,8 +33,8 @@ public class IplocationServiceImp implements IpLocationService {
 	}
 
 	public JSONObject getGeoJson(String date) throws Exception {
-		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(date);
-		return GeoJsonUtils.toGeoJson(zmIpDetails);
+//		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(date);
+		return null;
 	}
 
 	@Override
@@ -48,5 +48,22 @@ public class IplocationServiceImp implements IpLocationService {
 			zmIpDetails = ipLocationDao.queryLal(request);
 		}
 		return GeoJsonUtils.toJsonArray(zmIpDetails);
+	}
+
+	@Override
+	public JSONObject getChartData(MapLevelsRequest request) throws Exception {
+		JSONObject result = new JSONObject();
+		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(request);
+		// table
+		JSONArray tableArray = new JSONArray();
+		for (ZmIpDetail zmIpDetail : zmIpDetails) {
+			JSONObject col = new JSONObject();
+			col.put("country", zmIpDetail.getCn());
+			col.put("num", zmIpDetail.getIpCount());
+			
+			tableArray.put(col);
+		}
+		result.put("tableData", tableArray);
+		return result;
 	}
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>layui</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="/iplocation/resources/js/layer/css/layui.css" rel="stylesheet">
+</head>
+<body>
+	<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+		<ul class="layui-tab-title">
+    		<li class="layui-this">Table</li>
+    		<li>Pie chart</li>
+  	</ul>
+  	<div class="layui-tab-content">
+    	<div class="layui-tab-item layui-show">
+        <table class="layui-table" id="layui-table">
+        </table>
+    	</div>
+    	<div class="layui-tab-item">
+    		
+    	</div>
+  	</div>
+  	<script src="/iplocation/resources/js/layer/layui.js" charset="utf-8"></script>
+  	<script>
+    var chartData = ${chartData};
+    layui.use(['element', 'table'], function(){
+      var $ = layui.jquery;
+      var element = layui.element;
+      // active
+      var active = {
+        tabChange: function(){
+          // change tab
+          element.tabChange();
+        }
+      };
+      $('.site-demo-active').on('click', function(){
+        var othis = $(this), type = othis.data('type');
+        active[type] ? active[type].call(this, othis) : '';
+      });
+      // table
+      var table = layui.table;
+      table.render({
+        elem: '#layui-table',
+        cols: [[
+          {checkbox: true, fixed: true}
+          ,{field:'country', title: 'country', width:80, sort: true, fixed: true}
+          ,{field:'num', title: 'num', width:80}
+        ]]
+        ,data: chartData.tableData
+        ,page: true
+        ,initSort: {
+          field: 'id'
+          ,type: 'desc'
+        }
+        ,loading: true
+        ,skin: 'line'
+        ,even: true
+      });
+
+    });
+    </script>
+</body>
+</html>

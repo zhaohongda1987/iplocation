@@ -96,4 +96,17 @@ public class IpLocationController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value = "/chartdata", method = RequestMethod.GET)
+	private ModelAndView getChartData(MapLevelsRequest request) {
+		ModelAndView mv = new ModelAndView("chartdata");
+		try {
+			request = ControllerUtils.getBasicMapLevelsRequest(request);
+			mv.addObject("chartData", ipLocationService.getChartData(request));
+		} catch (Exception e) {
+			mv.addObject("chartData", new JSONObject());
+			LOG.error("markercluster:", e);
+		}
+		return mv;
+	}
 }

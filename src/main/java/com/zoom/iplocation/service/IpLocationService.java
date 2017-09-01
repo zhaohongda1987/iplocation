@@ -12,4 +12,6 @@ public interface IpLocationService {
 	public JSONObject getMarkercluster(MapLevelsRequest request) throws Exception;
 	
 	public JSONObject getGeoJson(String date) throws Exception;
+	
+	public JSONObject getChartData(MapLevelsRequest request) throws Exception;
 }

@@ -45,10 +45,10 @@ public class IpLocationDaoTest extends BaseTest {
 	}
 	@Test
 	public void testQueryCountry() throws Exception {
-		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry("2017-08-04");
-		for (ZmIpDetail zmIpDetail : zmIpDetails) {
-			System.out.println(zmIpDetail.getLatitude());
-		}
+//		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry("2017-08-04");
+//		for (ZmIpDetail zmIpDetail : zmIpDetails) {
+//			System.out.println(zmIpDetail.getLatitude());
+//		}
 	}
 	
 	@Test

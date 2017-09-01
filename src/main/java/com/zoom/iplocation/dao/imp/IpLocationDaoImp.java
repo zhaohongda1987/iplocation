@@ -51,9 +51,33 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 	}
 
 	@Override
-	public List<ZmIpDetail> queryCountry(String searchDate) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ZmIpDetail> queryCountry(MapLevelsRequest request) throws Exception {
+		String sql = "select count(*) as ip_count, cn from zmlog.zm_tm_ip_detail_" + request.getSearchDate()
+				+ " where latitude is not null";
+		if (StringUtils.isNotBlank(request.getIpAddr())) {
+			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getMeetingId())) {
+			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getServerGroup())) {
+			sql = sql + " and server_group='" + request.getServerGroup() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getAccountId())) {
+			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+		}
+		sql = sql + " group by cn order by ip_count desc";
+		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
+		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
+		for (Map<String, Object> row : list) {
+			ZmIpDetail zmIpDetail = new ZmIpDetail();
+			zmIpDetail.setCn(row.get("cn").toString());
+			Long ipCount = (Long) row.get("ip_count");
+			zmIpDetail.setIpCount(ipCount.intValue());
+
+			zmImDetails.add(zmIpDetail);
+		}
+		return zmImDetails;
 	}
 
 	@Override

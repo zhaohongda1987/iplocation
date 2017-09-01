@@ -53,6 +53,11 @@ var baseLayers = {
 var overlayLayers = {
 
 };
+// layui
+var layer;
+layui.use(['layer'], function(){
+	layer = layui.layer
+});
 // full screen
 var fsControl = new L.Control.FullScreen();
 map.addControl(fsControl);
@@ -66,78 +71,9 @@ map.on('exitFullscreen', function(){
 });
 
 L.control.layers(baseLayers, overlayLayers).addTo(map);
-
-//tool bar
-//var LayerToolbar = new L.ToolbarAction({
-//	toolbarIcon: {
-//		html: '',
-//		className: 'leaflet-layer-toolbar',
-//		tooltip: ''
-//	}
-//})
-//new L.Toolbar.Control({
-//	position: 'topleft',
-//	actions: [
-//        LayerToolbar
-//    ]
-//}).addTo(map);
-//$("#leaflet-layer-toolbar").click(function() {
-//	layer.open({
-//		type: 2,
-//		title: false,
-//		closeBtn: 0, //不显示关闭按钮
-//		shade: [0],
-//		area: ['340px', '215px'],
-//		offset: 'rb', //右下角弹出
-//		time: 2000, //2秒后自动关闭
-//		anim: 2,
-//		content: ['test/guodu.html', 'no'], //iframe的url，no代表不显示滚动条
-//		end: function(){ //此处用于演示
-//			layer.open({
-//				type: 2,
-//				title: '很多时候，我们想最大化看，比如像这个页面。',
-//				shadeClose: true,
-//				shade: false,
-//				maxmin: true, //开启最大化最小化按钮
-//				area: ['893px', '600px'],
-//				content: '//fly.layui.com/'
-//			});
-//		}
-//	});
-//});
-
-var coverageLayer;
-function translateData(data) {
-	if(coverageLayer != null) {
-		coverageLayer.remove();
-	}
-	// maskcanvas
-    var initRadius = 800;
-    $('input.range').attr('value', initRadius);
-
-    coverageLayer = new L.GridLayer.MaskCanvas({
-    	opacity: 0.2,
-    	radius: initRadius, 
-    	useAbsoluteRadius: true, 
-    	lineColor: '#A00',
-    	noMask: false,
-    	color: '#000'});
-    coverageLayer.setData(data);
-    map.addLayer(coverageLayer);
-}
-
-// submit
-$(".btn-search-comment").click(function() {
-	update();
-});
-
-function update() {
-	// process loading start
-	var index = layer.load(0, {
-		shade: [0.2,'#2F4056']
-	});
+// param
+function getParams() {
 	var bounds = map.getBounds();
-	// bounds.getWest(), bounds.getSouth(), bounds.getEast(),bounds.getNorth()
 	var zoomLevels = map.getZoom();
 	var selectDate = $('#startDate').val() || '';
 	if (selectDate == '') {
@@ -169,10 +105,68 @@ function update() {
 		serverGroup: serverGroup,
 		accountId: accountId
 	}
+	return data;
+}
+// easy button
+var stateChangingButton = L.easyButton({
+    states: [{
+            stateName: 'show-data',
+            icon:      'fa-table',
+            title:     'show data',
+            onClick: function(btn, map) {
+            	// jump url
+            	var params = getParams();
+            	var jumpUrl = window.location.origin+'/iplocation/chartdata?'+encodeSearchParams(params);
+            	layer.open({
+            	      type: 2,
+            	      title: 'country data',
+            	      shadeClose: true,
+            	      shade: false,
+            	      maxmin: true, //开启最大化最小化按钮
+            	      area: ['893px', '600px'],
+            	      content: jumpUrl
+            	});
+            }
+        }]
+});
+
+stateChangingButton.addTo(map);
+
+var coverageLayer;
+function translateData(data) {
+	if(coverageLayer != null) {
+		coverageLayer.remove();
+	}
+	// maskcanvas
+    var initRadius = 800;
+    $('input.range').attr('value', initRadius);
+
+    coverageLayer = new L.GridLayer.MaskCanvas({
+    	opacity: 0.2,
+    	radius: initRadius, 
+    	useAbsoluteRadius: true, 
+    	lineColor: '#A00',
+    	noMask: false,
+    	color: '#000'});
+    coverageLayer.setData(data);
+    map.addLayer(coverageLayer);
+}
+
+// submit
+$(".btn-search-comment").click(function() {
+	update();
+});
+
+function update() {
+	// process loading start
+	var index = layer.load(0, {
+		shade: [0.2,'#2F4056']
+	});
+	var ajaxData = getParams();
 	$.ajax({
 		url : "/iplocation/maskcanvasajax",
 		type : "POST",
-		data : JSON.stringify(data),
+		data : JSON.stringify(ajaxData),
 		dataType : 'json',
 		contentType : 'application/json;charset=UTF-8',
 		success : function(result) {
@@ -184,4 +178,18 @@ function update() {
 			layer.close(index);
 		}
 	});
+}
+// get url join
+function encodeSearchParams(obj) {
+	const params = [];
+	Object.keys(obj).forEach((key) => {
+		let value = obj[key]
+	    // 如果值为undefined我们将其置空
+	    if (typeof value === 'undefined') {
+	    	value = ''
+	    }
+	    // 对于需要编码的文本（比如说中文）我们要进行编码
+	    params.push([key, encodeURIComponent(value)].join('='))
+	 })
+	 return params.join('&')
 }

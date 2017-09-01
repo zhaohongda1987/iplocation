@@ -18,7 +18,7 @@
     <!-- leaflet -->
     <link rel="stylesheet" href="/iplocation/resources/css/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin="" />
     <link rel="stylesheet" href="/iplocation/resources/js/leaflet/fullscreen/Control.FullScreen.css" >
-    <link rel="stylesheet" href="/iplocation/resources/js/leaflet/toolbar/leaflet.toolbar.css" >
+    <link rel="stylesheet" href="/iplocation/resources/js/leaflet/easybutton/easy-button.css" >
     <!-- Toastr style -->
     <link href="/iplocation/resources/css/toastr/toastr.min.css" rel="stylesheet">
 
@@ -27,6 +27,8 @@
 
     <link href="/iplocation/resources/css/animate.css" rel="stylesheet">
     <link href="/iplocation/resources/css/style.css" rel="stylesheet">
+    <!-- layui -->
+    <link href="/iplocation/resources/js/layer/css/layui.css" rel="stylesheet">
 
 </head>
 
