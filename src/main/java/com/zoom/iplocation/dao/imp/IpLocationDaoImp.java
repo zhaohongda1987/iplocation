@@ -20,10 +20,11 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryLal(MapLevelsRequest request) throws Exception {
-		String sql = "select latitude,longitude from zmlog.zm_tm_ip_detail_" + request.getSearchDate()
-				+ " where city!='' \r\n" + "        and (latitude between " + request.getSourtheastLat() + " and "
-				+ request.getNorthwestLat() + ") \r\n" + "        and (longitude between " + request.getNorthwestLng()
-				+ " and " + request.getSourtheastLng() + ")";
+		String sql = "select meeting_id,account_id,latitude,longitude from zmlog.zm_tm_ip_detail_"
+				+ request.getSearchDate() + " where city!='' \r\n" + "        and (latitude between "
+				+ request.getSourtheastLat() + " and " + request.getNorthwestLat() + ") \r\n"
+				+ "        and (longitude between " + request.getNorthwestLng() + " and " + request.getSourtheastLng()
+				+ ")";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
 		}
@@ -45,6 +46,8 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			BigDecimal longitude = (BigDecimal) row.get("longitude");
 			zmIpDetail.setLongitude(longitude.doubleValue());
 
+			zmIpDetail.setDescribe("meeting_id:" + row.get("meeting_id").toString() + ";account_id:"
+					+ row.get("account_id").toString());
 			zmImDetails.add(zmIpDetail);
 		}
 		return zmImDetails;
@@ -117,6 +120,8 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			Long ipCount = (Long) row.get("ip_count");
 			zmIpDetail.setIpCount(ipCount.intValue());
 
+			zmIpDetail.setDescribe("region cluster");
+
 			zmImDetails.add(zmIpDetail);
 		}
 		return zmImDetails;
@@ -155,6 +160,8 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			zmIpDetail.setCity(row.get("city").toString());
 			Long ipCount = (Long) row.get("ip_count");
 			zmIpDetail.setIpCount(ipCount.intValue());
+
+			zmIpDetail.setDescribe("city:" + zmIpDetail.getCity() + ";cn:" + zmIpDetail.getCn());
 
 			zmImDetails.add(zmIpDetail);
 		}

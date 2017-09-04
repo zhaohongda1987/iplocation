@@ -12,6 +12,7 @@ public class ZmIpDetail {
 	private String organization;
 	private String regionName;
 	private Integer dataSource;
+	private String describe;
 	/**
 	 * 聚集在一个点的IP总数
 	 */
@@ -82,5 +83,11 @@ public class ZmIpDetail {
 	}
 	public void setIpCount(Integer ipCount) {
 		this.ipCount = ipCount;
+	}
+	public String getDescribe() {
+		return describe;
+	}
+	public void setDescribe(String describe) {
+		this.describe = describe;
 	}
 }

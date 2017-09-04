@@ -53,6 +53,11 @@ var baseLayers = {
 var overlayLayers = {
 
 };
+//layui
+var layer;
+layui.use(['layer'], function(){
+	layer = layui.layer
+});
 // full screen
 var fsControl = new L.Control.FullScreen();
 map.addControl(fsControl);
@@ -66,6 +71,61 @@ map.on('exitFullscreen', function() {
 });
 
 L.control.layers(baseLayers, overlayLayers).addTo(map);
+//param
+function getParams() {
+	var bounds = map.getBounds();
+	var zoomLevels = map.getZoom();
+	var selectDate = $('#startDate').val() || '';
+	if (selectDate == '') {
+		alert("date should not null");
+		layer.close(index);
+		return;
+	}
+	var ipAddr = $('#ipAddr').val() || '';
+	var meetingId = $('#meetingId').val() || '';
+	var serverGroup = $('#serverSelect').val() || '';
+	var accountId = $('#accountId').val() || '';
+	if(serverGroup=='all') {
+		serverGroup="";
+	}
+	var data = {
+		northwestLng : bounds.getWest(),
+		sourtheastLat : bounds.getSouth(),
+		sourtheastLng : bounds.getEast(),
+		northwestLat : bounds.getNorth(),
+		zoomLevel : zoomLevels,
+		searchDate : selectDate,
+		ipAddr : ipAddr,
+		meetingId : meetingId,
+		serverGroup: serverGroup,
+		accountId: accountId
+	}
+	return data;
+}
+//easy button
+var stateChangingButton = L.easyButton({
+    states: [{
+            stateName: 'show-data',
+            icon:      'fa-table',
+            title:     'show data',
+            onClick: function(btn, map) {
+            	// jump url
+            	var params = getParams();
+            	var jumpUrl = window.location.origin+'/iplocation/chartdata?'+encodeSearchParams(params);
+            	layer.open({
+            	      type: 2,
+            	      title: 'country data',
+            	      shadeClose: true,
+            	      shade: false,
+            	      maxmin: true, //开启最大化最小化按钮
+            	      area: ['893px', '600px'],
+            	      content: jumpUrl
+            	});
+            }
+        }]
+});
+stateChangingButton.addTo(map);
+
 var heat;
 if (ipData != null) {
 	translateData(ipData);
@@ -83,18 +143,6 @@ function translateData(dt) {
 var oldZoomLevel = map.getZoom();
 map.on('moveend', function changeZoomLevel() {
 	var newZoomLevel = map.getZoom();
-	// if (newZoomLevel <= 6) {
-	// if (newZoomLevel != oldZoomLevel) {
-	// update();
-	// }
-	// } else {
-	// if (newZoomLevel == oldZoomLevel) {
-	// update();
-	// }
-	// if (oldZoomLevel <= 6) {
-	// update();
-	// }
-	// }
 	if (newZoomLevel < 11) {
 		if (oldZoomLevel >= 11) {
 			update();
@@ -119,37 +167,11 @@ function update() {
 	var index = layer.load(0, {
 		shade : [ 0.2, '#2F4056' ]
 	});
-	var bounds = map.getBounds();
-	// bounds.getWest(), bounds.getSouth(), bounds.getEast(),bounds.getNorth()
-	var zoomLevels = map.getZoom();
-	var selectDate = $('#startDate').val() || '';
-	if (selectDate == '') {
-		alert("date should not null");
-		layer.close(index);
-		return;
-	}
-	var ipAddr = $('#ipAddr').val() || '';
-	var meetingId = $('#meetingId').val() || '';
-	var serverGroup = $('#serverSelect').val() || '';
-	var accountId = $('#accountId').val() || '';
-	if(serverGroup=='all') {
-		serverGroup="";
-	}
-	var data = {
-		northwestLng : bounds.getWest(),
-		sourtheastLat : bounds.getSouth(),
-		sourtheastLng : bounds.getEast(),
-		northwestLat : bounds.getNorth(),
-		zoomLevel : zoomLevels,
-		searchDate : selectDate,
-		meetingId : meetingId,
-		serverGroup: serverGroup,
-		accountId: accountId
-	}
+	var ajaxData = getParams();
 	$.ajax({
 		url : "/iplocation/heatmapworkajax",
 		type : "POST",
-		data : JSON.stringify(data),
+		data : JSON.stringify(ajaxData),
 		dataType : 'json',
 		contentType : 'application/json;charset=UTF-8',
 		success : function(result) {
@@ -162,3 +184,17 @@ function update() {
 		}
 	});
 };
+//get url join
+function encodeSearchParams(obj) {
+	const params = [];
+	Object.keys(obj).forEach((key) => {
+		let value = obj[key]
+	    // 如果值为undefined我们将其置空
+	    if (typeof value === 'undefined') {
+	    	value = ''
+	    }
+	    // 对于需要编码的文本（比如说中文）我们要进行编码
+	    params.push([key, encodeURIComponent(value)].join('='))
+	 })
+	 return params.join('&')
+}

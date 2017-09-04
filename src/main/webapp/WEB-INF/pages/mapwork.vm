@@ -1,0 +1,86 @@
+#set($firstLevel = "markercluster")
+#set($secondLevel = $!{nav.sl})
+
+#parse("/basic_model/header.vm")
+<link rel="stylesheet" href="/iplocation/resources/css/markercluster/MarkerCluster.css" />
+<link rel="stylesheet" href="/iplocation/resources/css/markercluster/MarkerCluster.Default.css" />
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+            	<div class="div-search" >
+            		<label class="search-label" style="font-size:large">Map Type:</label>
+					<select class="search-select" name="mapType" id="mapType">
+						<option value="marker">&nbsp;&nbsp;&nbsp;marker map&nbsp;&nbsp;</option>
+						<option value="heat">&nbsp;&nbsp;&nbsp;heat map&nbsp;&nbsp;</option>
+					</select>&nbsp;&nbsp;
+                	<label class="search-label" style="font-size:large">DC:</label>
+					<select class="search-select" name="serverSelect" id="serverSelect">
+						<option>&nbsp;&nbsp;&nbsp;all&nbsp;&nbsp;</option>
+						<option value="sy">&nbsp;&nbsp;&nbsp;sy&nbsp;&nbsp;</option>
+						<option value="am">&nbsp;&nbsp;&nbsp;am&nbsp;&nbsp;</option>
+						<option value="gs">&nbsp;&nbsp;&nbsp;gs&nbsp;&nbsp;</option>
+						<option value="ny">&nbsp;&nbsp;&nbsp;ny&nbsp;&nbsp;</option>
+						<option value="tj">&nbsp;&nbsp;&nbsp;tj&nbsp;&nbsp;</option>
+						<option value="hk">&nbsp;&nbsp;&nbsp;hk&nbsp;&nbsp;</option>
+						<option value="mb">&nbsp;&nbsp;&nbsp;mb&nbsp;&nbsp;</option>
+						<option value="sc">&nbsp;&nbsp;&nbsp;sc&nbsp;&nbsp;</option>
+						<option value="sp">&nbsp;&nbsp;&nbsp;sp&nbsp;&nbsp;</option>
+					</select>&nbsp;&nbsp;
+					<label class="search-label" style="font-size:large">Date:</label>
+                	<input type="text" data-provide="datepicker" id="startDate" name="startDate" value="$!{startDate}" />&nbsp;&nbsp;
+                	<label class="search-label" style="font-size:large">IP(MMR/BCS):</label>
+                	<input type="text" id="ipAddr" name="ipAddr" />&nbsp;&nbsp;
+                	<label class="search-label" style="font-size:large">Meeting ID:</label>
+                	<input type="text" id="meetingId" name="meetingId" />&nbsp;&nbsp;
+                	<label class="search-label" style="font-size:large">Account ID:</label>
+                	<input type="text" id="accountId" name="accountId" />&nbsp;&nbsp;
+                	<button type="button" class="btn btn-search-comment">submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+        	<div id="progress">
+				<div id="progress-bar"></div>
+			</div>
+    		<div class="ibox-content" id="map-canvas">
+    		</div>
+    	</div>
+    </div>
+</div>
+<div id="map-cover"></div>
+#parse("/basic_model/footer_js.vm")
+<script>
+	var ipData = ${ipData};
+	var date = new Date();
+	date = new Date(date.getTime() - 86400000*3);
+	$("#startDate").datepicker(
+	    	option = {
+				showMonthAfterYear: true,
+	    		changeMonth: true,
+	    		changeYear: true,
+				format: 'yyyy-mm-dd',
+				showOnFocus: true,
+				autoclose: true,
+				endDate: "-3d",
+				startDate: "-16d"
+			}
+	);
+	var yy = date.getFullYear(), mm = (date.getMonth() + 1).toString(), dd = date.getDate().toString();
+    if (mm.length == 1) {
+    	mm = '0' + mm;
+    }
+    if (dd.length == 1) {
+        dd = '0' + dd;
+    }
+    var dateStr = yy+"-"+mm+"-"+dd;
+	$('#startDate').val(dateStr).trigger('change');
+	var selectDate = $('#startDate').val() || '';
+</script>
+
+<script src="/iplocation/resources/js/markercluster/leaflet.markercluster-src.js"></script>
+<script src="/iplocation/resources/js/heatmap/leaflet-heat.js"></script>
+<script src="/iplocation/resources/js/publicMethod.js"></script>
+<script src="/iplocation/resources/js/mapwork.js" defer></script>
+#parse("/basic_model/footer.vm")

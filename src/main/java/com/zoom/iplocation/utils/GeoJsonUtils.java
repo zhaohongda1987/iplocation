@@ -14,7 +14,7 @@ import com.zoom.iplocation.entity.ZmIpDetail;
 public class GeoJsonUtils {
 
 	private static Logger LOG = LoggerFactory.getLogger(GeoJsonUtils.class);
-			
+
 	public static JSONObject toGeoJson(List<ZmIpDetail> zmIpDetails) {
 		JSONObject featureCollection = new JSONObject();
 		try {
@@ -51,19 +51,22 @@ public class GeoJsonUtils {
 	public static JSONObject toJsonArray(List<ZmIpDetail> zmIpDetails) {
 		JSONObject result = new JSONObject();
 		JSONArray dataArray = new JSONArray();
-		try {
-			for (ZmIpDetail zmIpDetail : zmIpDetails) {
-				JSONObject oneData = new JSONObject();
-				oneData.put("latitude", zmIpDetail.getLatitude());
-				oneData.put("longitude", zmIpDetail.getLongitude());
-				if (zmIpDetail.getIpCount() != null) {
-					oneData.put("ipcount", zmIpDetail.getIpCount());
-				}
+		if (zmIpDetails.size() > 0) {
+			try {
+				for (ZmIpDetail zmIpDetail : zmIpDetails) {
+					JSONObject oneData = new JSONObject();
+					oneData.put("latitude", zmIpDetail.getLatitude());
+					oneData.put("longitude", zmIpDetail.getLongitude());
+					oneData.put("describe", zmIpDetail.getDescribe());
+					if (zmIpDetail.getIpCount() != null) {
+						oneData.put("ipcount", zmIpDetail.getIpCount());
+					}
 
-				dataArray.put(oneData);
+					dataArray.put(oneData);
+				}
+			} catch (JSONException e) {
+				LOG.error("toJsonArray:", e);
 			}
-		} catch (JSONException e) {
-			LOG.error("toJsonArray:", e);
 		}
 		result.put("dataarray", dataArray);
 		return result;

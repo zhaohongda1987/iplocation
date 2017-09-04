@@ -20,15 +20,18 @@
         </table>
     	</div>
     	<div class="layui-tab-item">
-    		
+    		<div id="pie" style="min-width: 700px; height: 400px">  
+        </div>
     	</div>
   	</div>
   	<script src="/iplocation/resources/js/layer/layui.js" charset="utf-8"></script>
+  	<script src="/iplocation/resources/js/echart/echarts.simple.min.js" charset="utf-8"></script>
   	<script>
     var chartData = ${chartData};
     layui.use(['element', 'table'], function(){
-      var $ = layui.jquery;
-      var element = layui.element;
+      var $ = layui.jquery
+      ,element = layui.element
+      ,table = layui.table;
       // active
       var active = {
         tabChange: function(){
@@ -41,26 +44,62 @@
         active[type] ? active[type].call(this, othis) : '';
       });
       // table
-      var table = layui.table;
       table.render({
         elem: '#layui-table',
         cols: [[
           {checkbox: true, fixed: true}
-          ,{field:'country', title: 'country', width:80, sort: true, fixed: true}
-          ,{field:'num', title: 'num', width:80}
+          ,{field:'country', title: 'country', width:160, sort: true, fixed: true}
+          ,{field:'num', title: 'num', width:120, sort: true, fixed: true}
         ]]
         ,data: chartData.tableData
         ,page: true
         ,initSort: {
-          field: 'id'
+          field: 'num'
           ,type: 'desc'
         }
         ,loading: true
         ,skin: 'line'
         ,even: true
       });
-
     });
+
+    // pie chart
+    var drawPie = function(config) {
+      this.myChart = echarts.init(document.getElementById("pie"));
+      option = {
+        title : {
+          text: 'text',
+          subtext: 'subtext',
+          x:'center'
+        },
+        tooltip : {
+          trigger : 'item',
+          formatter : "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend : {
+          orient : 'horizontal',
+          bottom : 'bottom',
+          data : config.legend
+        },
+        color:['#1ABC9C','#F1C40F','#3498DB','#E67E22','#2ECC71','#E74C3C','#9B59B6','#A8B4B6','#34495E','#778484'],
+        series : [ {
+          name : 'pie chart test',
+          type : 'pie',
+          radius : '55%',
+          center : [ '50%', '60%' ],
+          data : config.data,
+          itemStyle : {
+            emphasis : {
+              shadowBlur : 10,
+              shadowOffsetX : 0,
+              shadowColor : 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        } ]
+      };
+      this.myChart.setOption(option);
+    };
+    drawPie(chartData.pieData);
     </script>
 </body>
 </html>

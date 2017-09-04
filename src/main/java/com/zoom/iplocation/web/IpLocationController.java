@@ -109,4 +109,18 @@ public class IpLocationController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value = "/mapwork", method = RequestMethod.GET)
+	private ModelAndView getMap() {
+		ModelAndView mv = new ModelAndView("mapwork");
+		try {
+			MapLevelsRequest request = new MapLevelsRequest();
+			request = ControllerUtils.getBasicMapLevelsRequest(request);
+			mv.addObject("ipData", ipLocationService.getMarkercluster(request));
+		} catch (Exception e) {
+			mv.addObject("ipData", new JSONObject());
+			LOG.error("map work:", e);
+		}
+		return mv;
+	}
 }

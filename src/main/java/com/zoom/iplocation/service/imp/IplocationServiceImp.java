@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.zoom.iplocation.dao.IpLocationDao;
 import com.zoom.iplocation.entity.ZmIpDetail;
 import com.zoom.iplocation.request.MapLevelsRequest;
@@ -33,7 +32,7 @@ public class IplocationServiceImp implements IpLocationService {
 	}
 
 	public JSONObject getGeoJson(String date) throws Exception {
-//		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(date);
+		// List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(date);
 		return null;
 	}
 
@@ -56,14 +55,37 @@ public class IplocationServiceImp implements IpLocationService {
 		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(request);
 		// table
 		JSONArray tableArray = new JSONArray();
+		// total num
+		Integer totalNum = 0;
 		for (ZmIpDetail zmIpDetail : zmIpDetails) {
+			totalNum += zmIpDetail.getIpCount();
+		}
+		JSONObject allDataCol = new JSONObject();
+		allDataCol.put("country", "ALL");
+		allDataCol.put("num", totalNum);
+		tableArray.put(allDataCol);
+		// pie chart
+		List<String> legend = new ArrayList<>();
+		List<JSONObject> data = new ArrayList<>();
+		JSONObject pieChart = new JSONObject();
+		for (ZmIpDetail zmIpDetail : zmIpDetails) {
+			// table
 			JSONObject col = new JSONObject();
 			col.put("country", zmIpDetail.getCn());
 			col.put("num", zmIpDetail.getIpCount());
-			
+
 			tableArray.put(col);
+			// pie chart
+			legend.add(zmIpDetail.getCn());
+			JSONObject simpleData = new JSONObject();
+			simpleData.put("name", zmIpDetail.getCn());
+			simpleData.put("value", zmIpDetail.getIpCount());
+			data.add(simpleData);
 		}
+		pieChart.put("legend", legend);
+		pieChart.put("data", data);
 		result.put("tableData", tableArray);
+		result.put("pieData", pieChart);
 		return result;
 	}
 }
