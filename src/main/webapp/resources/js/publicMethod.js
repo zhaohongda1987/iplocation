@@ -69,7 +69,7 @@ map.on('enterFullscreen', function(){
 	document.getElementById("map-canvas").style.width="100%";
 });
 map.on('exitFullscreen', function(){
-	document.getElementById("map-canvas").style.height="84%";
+	document.getElementById("map-canvas").style.height="87%";
 	document.getElementById("map-canvas").style.width="99%";
 });
 L.control.layers(baseLayers, overlayLayers).addTo(map);
@@ -107,6 +107,7 @@ function getParams() {
 }
 
 //easy button
+var openIframe;
 var stateChangingButton = L.easyButton({
     states: [{
             stateName: 'show-data',
@@ -116,7 +117,7 @@ var stateChangingButton = L.easyButton({
             	// jump url
             	var params = getParams();
             	var jumpUrl = window.location.origin+'/iplocation/chartdata?'+encodeSearchParams(params);
-            	layer.open({
+            	openIframe = layer.open({
             	      type: 2,
             	      title: 'country data',
             	      shadeClose: true,

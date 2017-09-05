@@ -14,6 +14,10 @@ $(".btn-search-comment").click(function() {
 	} else if(mapType=='heat') {
 		updateHeat();
 	}
+	// close iframe
+	if(openIframe!=null) {
+		layer.close(openIframe);
+	}
 });
 
 //move change
@@ -90,7 +94,7 @@ function translateMarkerData(data) {
 	if (mapLayer!=null) {
 		map.removeLayer(mapLayer);
 	}
-	var mapLayer = L.markerClusterGroup({
+	mapLayer = L.markerClusterGroup({
 		chunkedLoading : true,
 		chunkProgress : updateProgressBar,
 		maxClusterRadius : 40,

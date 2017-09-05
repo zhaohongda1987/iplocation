@@ -34,12 +34,11 @@
 
 <body>
 <div id="wrapper">
-    #parse("/basic_model/navigator.vm")
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row border-bottom">
-            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;min-height: 10px">
                 <div class="navbar-header" style="padding-left: 25px">
-                    <h2>Geo location</h2>
+                    <h1 style="font-size: x-large">Geo location</h1>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
