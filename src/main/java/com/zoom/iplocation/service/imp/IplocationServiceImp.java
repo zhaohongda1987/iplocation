@@ -76,11 +76,17 @@ public class IplocationServiceImp implements IpLocationService {
 
 			tableArray.put(col);
 			// pie chart
-			legend.add(zmIpDetail.getCn());
-			JSONObject simpleData = new JSONObject();
-			simpleData.put("name", zmIpDetail.getCn());
-			simpleData.put("value", zmIpDetail.getIpCount());
-			data.add(simpleData);
+			if (data.size() < 10) {
+				legend.add(zmIpDetail.getCn());
+				JSONObject simpleData = new JSONObject();
+				simpleData.put("name", zmIpDetail.getCn());
+				simpleData.put("value", zmIpDetail.getIpCount());
+				data.add(simpleData);
+			}
+			// funnel max
+			if(data.size() == 1) {
+				pieChart.put("max", zmIpDetail.getIpCount());
+			}
 		}
 		pieChart.put("legend", legend);
 		pieChart.put("data", data);

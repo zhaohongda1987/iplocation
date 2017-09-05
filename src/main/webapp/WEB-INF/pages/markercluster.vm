@@ -75,5 +75,6 @@
 </script>
 
 <script src="/iplocation/resources/js/markercluster/leaflet.markercluster-src.js"></script>
+<script src="/iplocation/resources/js/publicMethod.js"></script>
 <script src="/iplocation/resources/js/markerclusterwork.js" defer></script>
 #parse("/basic_model/footer.vm")

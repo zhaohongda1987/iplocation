@@ -73,5 +73,6 @@
 </script>
 
 <script src="/iplocation/resources/js/heatmap/leaflet-heat.js"></script>
+<script src="/iplocation/resources/js/publicMethod.js"></script>
 <script src="/iplocation/resources/js/heatmapwork.js" defer></script>
 #parse("/basic_model/footer.vm")

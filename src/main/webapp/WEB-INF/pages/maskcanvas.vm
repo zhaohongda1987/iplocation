@@ -70,5 +70,6 @@
 
 <script src="/iplocation/resources/js/maskCanvas/QuadTree.js"></script>
 <script src="/iplocation/resources/js/maskCanvas/L.GridLayer.MaskCanvas.js"></script>
+<script src="/iplocation/resources/js/publicMethod.js"></script>
 <script src="/iplocation/resources/js/maskcanvaswork.js" async defer></script>
 #parse("/basic_model/footer.vm")
