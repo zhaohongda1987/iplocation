@@ -78,7 +78,6 @@
 	$('#startDate').val(dateStr).trigger('change');
 	var selectDate = $('#startDate').val() || '';
 </script>
-
 <script src="/iplocation/resources/js/markercluster/leaflet.markercluster-src.js"></script>
 <script src="/iplocation/resources/js/heatmap/leaflet-heat.js"></script>
 <script src="/iplocation/resources/js/publicMethod.js"></script>

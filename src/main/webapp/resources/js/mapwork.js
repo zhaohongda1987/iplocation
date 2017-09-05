@@ -1,10 +1,10 @@
 'use strict';
 
 var mapLayer;
-//// check basic data
-//if(ipData.dataarray != null) {
-//	translateMarkerData(ipData.dataarray);
-//}
+// check basic data
+if(ipData.dataarray != null) {
+	translateMarkerData(ipData.dataarray);
+}
 
 //submit
 $(".btn-search-comment").click(function() {
@@ -34,7 +34,11 @@ function updateMap() {
 	if(openIframe!=null) {
 		layer.close(openIframe);
 	}
-}
+};
+//date change
+$('#startDate').change(function() {
+	updateMap();
+});
 
 //move change
 var oldZoomLevel = map.getZoom();
