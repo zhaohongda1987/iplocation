@@ -1,9 +1,10 @@
 'use strict';
+
 var mapLayer;
-// check basic data
-if(ipData.dataarray != null) {
-	translateMarkerData(ipData.dataarray);
-}
+//// check basic data
+//if(ipData.dataarray != null) {
+//	translateMarkerData(ipData.dataarray);
+//}
 
 //submit
 $(".btn-search-comment").click(function() {
@@ -19,6 +20,21 @@ $(".btn-search-comment").click(function() {
 		layer.close(openIframe);
 	}
 });
+
+//on change
+function updateMap() {
+	//get map type
+	var mapType = $('#mapType').val();
+	if(mapType=='marker') {
+		updateMarker();
+	} else if(mapType=='heat') {
+		updateHeat();
+	}
+	// close iframe
+	if(openIframe!=null) {
+		layer.close(openIframe);
+	}
+}
 
 //move change
 var oldZoomLevel = map.getZoom();

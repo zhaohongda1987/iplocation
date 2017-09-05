@@ -85,7 +85,11 @@
                         		x: '25%',
                         		width: '50%',
                         		funnelAlign: 'left',
-                        		max: config.max
+                        		max: config.max,
+                        		tooltip : {
+        							trigger: 'item',
+        							formatter: "{a} <br/>{b} : {c}"
+    							}
                     		}
                 		}
             		},
