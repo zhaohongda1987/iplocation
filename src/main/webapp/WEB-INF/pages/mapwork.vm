@@ -4,6 +4,7 @@
 #parse("/basic_model/header.vm")
 <link rel="stylesheet" href="/iplocation/resources/css/markercluster/MarkerCluster.css" />
 <link rel="stylesheet" href="/iplocation/resources/css/markercluster/MarkerCluster.Default.css" />
+<link rel="stylesheet" href="/iplocation/resources/js/leaflet/iconpulse/L.Icon.Pulse.css" >
 
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -14,6 +15,7 @@
 					<select class="search-select" name="mapType" id="mapType" onchange="updateMap()">
 						<option value="marker">&nbsp;&nbsp;&nbsp;marker map&nbsp;&nbsp;</option>
 						<option value="heat">&nbsp;&nbsp;&nbsp;heat map&nbsp;&nbsp;</option>
+						<option value="point">&nbsp;&nbsp;&nbsp;point map&nbsp;&nbsp;</option>
 					</select>&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">DC:</label>
 					<select class="search-select" name="serverSelect" id="serverSelect" onchange="updateMap()">
@@ -80,6 +82,7 @@
 </script>
 <script src="/iplocation/resources/js/markercluster/leaflet.markercluster-src.js"></script>
 <script src="/iplocation/resources/js/heatmap/leaflet-heat.js"></script>
+<script src="/iplocation/resources/js/leaflet/iconpulse/L.Icon.Pulse.js"></script>
 <script src="/iplocation/resources/js/publicMethod.js"></script>
 <script src="/iplocation/resources/js/mapwork.js" defer></script>
 #parse("/basic_model/footer.vm")

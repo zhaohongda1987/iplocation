@@ -55,21 +55,21 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryCountry(MapLevelsRequest request) throws Exception {
-		String sql = "select count(*) as ip_count, cn from zmlog.zm_tm_ip_detail_" + request.getSearchDate()
-				+ " where latitude is not null";
+		String sql = "select avg(b.latitude) as latitude,avg(b.longitude) as longitude,count(*) as ip_count, a.cn from zmlog.zm_tm_ip_detail_" + request.getSearchDate()
+				+ " as a LEFT JOIN zmlog.zm_cn_location as b on b.cn=a.cn where a.latitude is not null";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
-			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
+			sql = sql + " and a.ip_addr='" + request.getIpAddr() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getMeetingId())) {
-			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
+			sql = sql + " and a.meeting_id='" + request.getMeetingId() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getServerGroup())) {
-			sql = sql + " and server_group='" + request.getServerGroup() + "'";
+			sql = sql + " and a.server_group='" + request.getServerGroup() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
-			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+			sql = sql + " and a.account_id like'" + request.getAccountId() + "%'";
 		}
-		sql = sql + " group by cn order by ip_count desc";
+		sql = sql + " group by a.cn order by ip_count desc";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
 		for (Map<String, Object> row : list) {
@@ -77,6 +77,10 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			zmIpDetail.setCn(row.get("cn").toString());
 			Long ipCount = (Long) row.get("ip_count");
 			zmIpDetail.setIpCount(ipCount.intValue());
+			BigDecimal latitude = (BigDecimal) row.get("latitude");
+			zmIpDetail.setLatitude(latitude.doubleValue());
+			BigDecimal longitude = (BigDecimal) row.get("longitude");
+			zmIpDetail.setLongitude(longitude.doubleValue());
 
 			zmImDetails.add(zmIpDetail);
 		}

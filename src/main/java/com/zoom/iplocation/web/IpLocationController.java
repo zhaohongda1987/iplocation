@@ -123,4 +123,19 @@ public class IpLocationController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value = "/pointMapWorkajax", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public Object getPointMapWorkajax(@RequestBody MapLevelsRequest request) {
+		JSONObject response = new JSONObject();
+		try {
+			request = ControllerUtils.getBasicMapLevelsRequest(request);
+			response.put("ipData", ipLocationService.getPointMap(request));
+			response.put("status", true);
+		} catch (Exception e) {
+			response.put("status", false);
+			LOG.error("pointMapWorkajax:", e);
+		}
+		return response.toString();
+	}
 }

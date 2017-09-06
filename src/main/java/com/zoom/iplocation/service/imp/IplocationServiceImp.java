@@ -84,7 +84,7 @@ public class IplocationServiceImp implements IpLocationService {
 				data.add(simpleData);
 			}
 			// funnel max
-			if(data.size() == 1) {
+			if (data.size() == 1) {
 				pieChart.put("max", zmIpDetail.getIpCount());
 			}
 		}
@@ -92,6 +92,47 @@ public class IplocationServiceImp implements IpLocationService {
 		pieChart.put("data", data);
 		result.put("tableData", tableArray);
 		result.put("pieData", pieChart);
+		return result;
+	}
+
+	@Override
+	public JSONArray getPointMap(MapLevelsRequest request) throws Exception {
+		JSONArray result = new JSONArray();
+		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryCountry(request);
+		for (ZmIpDetail zmIpDetail : zmIpDetails) {
+			JSONObject tmp = new JSONObject();
+			tmp.put("latitude", zmIpDetail.getLatitude());
+			tmp.put("longitude", zmIpDetail.getLongitude());
+			Integer num = zmIpDetail.getIpCount();
+			tmp.put("title", "Country=" + zmIpDetail.getCn() + ";Num=" + num);
+			// calculate icon size
+			if (num <= 100) {
+				tmp.put("size", 6);
+				tmp.put("color", "#33ffff");
+			} else if (num > 100 && num <= 500) {
+				tmp.put("size", 8);
+				tmp.put("color", "#3399ff");
+			} else if (num > 500 && num <= 1000) {
+				tmp.put("size", 10);
+				tmp.put("color", "#3333ff");
+			} else if (num > 1000 && num <= 3000) {
+				tmp.put("size", 12);
+				tmp.put("color", "#ffff99");
+			} else if (num > 3000 && num <= 5000) {
+				tmp.put("size", 14);
+				tmp.put("color", "#ffff00");
+			} else if (num > 5000 && num <= 10000) {
+				tmp.put("size", 16);
+				tmp.put("color", "#ff9933");
+			} else if (num > 10000 && num <= 50000) {
+				tmp.put("size", 18);
+				tmp.put("color", "#ff6600");
+			} else {
+				tmp.put("size", 20);
+				tmp.put("color", "#ff3300");
+			}
+			result.put(tmp);
+		}
 		return result;
 	}
 }

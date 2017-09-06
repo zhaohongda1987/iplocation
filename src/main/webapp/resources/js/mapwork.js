@@ -14,6 +14,8 @@ $(".btn-search-comment").click(function() {
 		updateMarker();
 	} else if(mapType=='heat') {
 		updateHeat();
+	} else if(mapType=='point') {
+		updatePointMap();
 	}
 	// close iframe
 	if(openIframe!=null) {
@@ -29,6 +31,8 @@ function updateMap() {
 		updateMarker();
 	} else if(mapType=='heat') {
 		updateHeat();
+	} else if(mapType=='point') {
+		updatePointMap();
 	}
 	// close iframe
 	if(openIframe!=null) {
@@ -84,6 +88,7 @@ map.on('moveend', function changeZoomLevel() {
 				updateHeat();
 			}
 		}
+	} else if(mapType=='point') {
 	}
 	oldZoomLevel = newZoomLevel;
 });
@@ -208,5 +213,43 @@ function translateHeatData(dt) {
 		map.removeLayer(mapLayer);
 	}
 	mapLayer = L.heatLayer(dt);
+	map.addLayer(mapLayer);
+};
+
+// update point map
+function updatePointMap() {
+	// process loading start
+	var index = layer.load(0, {
+		shade : [ 0.2, '#2F4056' ]
+	});
+	var ajaxData = getParams();
+	$.ajax({
+		url : "/iplocation/pointMapWorkajax",
+		type : "POST",
+		data : JSON.stringify(ajaxData),
+		dataType : 'json',
+		contentType : 'application/json;charset=UTF-8',
+		success : function(result) {
+			if (result.status) {
+				translatePointMap(result.ipData);
+			} else {
+				alert("date error");
+			}
+			layer.close(index);
+		}
+	});
+};
+function translatePointMap(dt) {
+	if (mapLayer!=null) {
+		map.removeLayer(mapLayer);
+	}
+	var pointMarkerList = [];
+	for (var i = 0; i < dt.length; i++) {
+		var a = dt[i];
+		var pulsingIcon = L.icon.pulse({iconSize:[a.size,a.size],color:a.color});
+		var pointMarker = L.marker([a.latitude,a.longitude],{icon: pulsingIcon,title:a.title});
+		pointMarkerList.push(pointMarker);
+	}
+	mapLayer = L.layerGroup(pointMarkerList); 
 	map.addLayer(mapLayer);
 };
