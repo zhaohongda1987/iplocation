@@ -13,19 +13,20 @@ public class ControllerUtils {
 			request.setZoomLevel(zoomLevel);
 		}
 		// check date
-		if (StringUtils.isNotBlank(request.getEndDate())) {
-			request.setSqlDate(DateFormatUtils.getYYYYmm(request.getEndDate()));
+		if (StringUtils.isNotBlank(request.getStartDate())) {
+			String[] dateArray = request.getStartDate().split("~");
+			if (dateArray.length > 1) {
+				request.setStartDate(dateArray[0].trim());
+				request.setEndDate(dateArray[1].trim());
+				request.setSqlDate(DateFormatUtils.getYYYYmm(dateArray[1].trim()));
+			}
 		} else {
-			String endDate = DateFormatUtils.getThreeDayAgo();
-			request.setSqlDate(DateFormatUtils.getYYYYmm(endDate));
-			request.setEndDate(endDate);
+			String basicDate = DateFormatUtils.getThreeDayAgo();
+			request.setStartDate(basicDate);
+			request.setEndDate(basicDate);
+			request.setSqlDate(DateFormatUtils.getYYYYmm(basicDate));
 		}
-		
-		if (StringUtils.isBlank(request.getStartDate())) {
-			String startDate = DateFormatUtils.getThreeDayAgo();
-			request.setStartDate(startDate);
-		}
-		
+
 		return request;
 	}
 }

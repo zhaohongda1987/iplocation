@@ -39,14 +39,6 @@ function updateMap() {
 		layer.close(openIframe);
 	}
 };
-//date change
-$('#startDate').change(function() {
-	var startDate = $('#startDate').val() || '';
-	var endDate = $('#endDate').val() || '';
-	if(compareDate(startDate,endDate)) {
-		updateMap();
-	}
-});
 $('#endDate').change(function() {
 	var startDate = $('#startDate').val() || '';
 	var endDate = $('#endDate').val() || '';

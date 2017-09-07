@@ -30,10 +30,10 @@
 						<option value="sc">&nbsp;&nbsp;&nbsp;sc&nbsp;&nbsp;</option>
 						<option value="sp">&nbsp;&nbsp;&nbsp;sp&nbsp;&nbsp;</option>
 					</select>&nbsp;&nbsp;
-					<label class="search-label" style="font-size:large">Start Date:</label>
-                	<input type="text" data-provide="datepicker" id="startDate" name="startDate" value="$!{startDate}" />&nbsp;&nbsp;
-                	<label class="search-label" style="font-size:large">End Date:</label>
-                	<input type="text" data-provide="datepicker" id="endDate" name="endDate" value="$!{endDate}" />&nbsp;&nbsp;
+					<label class="search-label" style="font-size:large">Date:</label>
+					<div class="layui-inline">
+                    	<input type="text" id="dateRange" placeholder="yyyy-MM-dd" />
+                    </div>&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">IP(MMR/BCS):</label>
                 	<input type="text" id="ipAddr" name="ipAddr" />&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">Meeting ID:</label>
@@ -59,31 +59,6 @@
 	var ipData = ${ipData};
 	var basicDate = new Date();
 	basicDate = new Date(basicDate.getTime() - 86400000*3);
-	$("#startDate").datepicker(
-	    	option = {
-				showMonthAfterYear: true,
-	    		changeMonth: true,
-	    		changeYear: true,
-				format: 'yyyy-mm-dd',
-				showOnFocus: true,
-				autoclose: true,
-				endDate: "-3d",
-				startDate: "-32d"
-			}
-	);
-	$("#endDate").datepicker(
-	    	option = {
-				showMonthAfterYear: true,
-	    		changeMonth: true,
-	    		changeYear: true,
-				format: 'yyyy-mm-dd',
-				showOnFocus: true,
-				autoclose: true,
-				endDate: "-3d",
-				startDate: "-32d"
-			}
-	);
-	
 	function getDateStr(dateTmp) {
 		var yy = dateTmp.getFullYear(), mm = (dateTmp.getMonth() + 1).toString(), dd = dateTmp.getDate().toString();
     	if (mm.length == 1) {
@@ -95,11 +70,21 @@
     	var dateStr = yy+"-"+mm+"-"+dd;
     	return dateStr;
 	}
-	
-	$('#startDate').val(getDateStr(basicDate)).trigger('change');
-	$('#endDate').val(getDateStr(basicDate)).trigger('change');
-	var startDate = $('#startDate').val() || '';
-	var endDate = $('#endDate').val() || '';
+	var basicDateValue = getDateStr(basicDate)+" ~ "+getDateStr(basicDate);
+	layui.use('laydate', function(){
+		var laydate = layui.laydate;
+  		laydate.render({
+    		elem: '#dateRange'
+    		,range: '~'
+    		,min: -33
+    		,max: -3
+    		,format: 'yyyy-MM-dd'
+    		,value: basicDateValue
+    		,done: function(value, date){
+    			updateMap();
+    		}
+  		});
+	});
 </script>
 <script src="/iplocation/resources/js/markercluster/leaflet.markercluster-src.js"></script>
 <script src="/iplocation/resources/js/heatmap/leaflet-heat.js"></script>
