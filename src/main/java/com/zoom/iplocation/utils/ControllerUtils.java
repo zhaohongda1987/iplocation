@@ -22,7 +22,7 @@ public class ControllerUtils {
 		}
 		
 		if (StringUtils.isBlank(request.getStartDate())) {
-			String startDate = DateFormatUtils.getFourDayAgo();
+			String startDate = DateFormatUtils.getThreeDayAgo();
 			request.setStartDate(startDate);
 		}
 		
