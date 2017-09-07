@@ -41,7 +41,18 @@ function updateMap() {
 };
 //date change
 $('#startDate').change(function() {
-	updateMap();
+	var startDate = $('#startDate').val() || '';
+	var endDate = $('#endDate').val() || '';
+	if(compareDate(startDate,endDate)) {
+		updateMap();
+	}
+});
+$('#endDate').change(function() {
+	var startDate = $('#startDate').val() || '';
+	var endDate = $('#endDate').val() || '';
+	if(compareDate(startDate,endDate)) {
+		updateMap();
+	}
 });
 
 //move change
@@ -58,17 +69,6 @@ map.on('moveend', function changeZoomLevel() {
 		} 
 		if(newZoomLevel >= 11 && newZoomLevel < 14) {
 			if (oldZoomLevel < 11) {
-				updateMarker();
-			}
-			if (oldZoomLevel >= 14) {
-				updateMarker();
-			}
-			if (newZoomLevel == oldZoomLevel) {
-				updateMarker();
-			}
-		}
-		if(newZoomLevel >= 14) {
-			if (oldZoomLevel < 14) {
 				updateMarker();
 			}
 			if (newZoomLevel == oldZoomLevel) {
@@ -89,6 +89,19 @@ map.on('moveend', function changeZoomLevel() {
 			}
 		}
 	} else if(mapType=='point') {
+		if (newZoomLevel < 9) {
+			if (oldZoomLevel >= 9) {
+				updatePointMap();
+			}
+		} 
+		if(newZoomLevel >= 9) {
+			if (oldZoomLevel < 9) {
+				updatePointMap();
+			}
+			if (newZoomLevel == oldZoomLevel) {
+				updatePointMap();
+			}
+		}
 	}
 	oldZoomLevel = newZoomLevel;
 });

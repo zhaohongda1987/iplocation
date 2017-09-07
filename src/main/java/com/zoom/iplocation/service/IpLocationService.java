@@ -15,5 +15,7 @@ public interface IpLocationService {
 	
 	public JSONObject getChartData(MapLevelsRequest request) throws Exception;
 	
-	public JSONArray getPointMap(MapLevelsRequest request) throws Exception;
+	public JSONArray getCountryPoint(MapLevelsRequest request) throws Exception;
+	
+	public JSONArray getCityPoint(MapLevelsRequest request) throws Exception;
 }

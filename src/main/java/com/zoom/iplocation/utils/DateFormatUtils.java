@@ -22,12 +22,31 @@ public class DateFormatUtils {
 			return "20170804";
 		}
 	}
+	
+	public static String getYYYYmm(String oldDate) {
+		try {
+			String[] dateArray = oldDate.split("-");
+			return dateArray[0] + dateArray[1];
+		} catch (Exception e) {
+			LOG.error("getYYYYmm:", e);
+			return "201708";
+		}
+	}
 
-	public static String getBasicDay() {
+	public static String getThreeDayAgo() {
 		Date date = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_MONTH, -3);
+		date = calendar.getTime();
+		return sdf.format(date);
+	}
+	
+	public static String getFourDayAgo() {
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_MONTH, -4);
 		date = calendar.getTime();
 		return sdf.format(date);
 	}

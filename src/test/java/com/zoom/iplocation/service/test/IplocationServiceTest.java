@@ -23,7 +23,7 @@ public class IplocationServiceTest extends BaseTest {
 	@Test
 	public void getLalByDateTest() {
 		MapLevelsRequest request = new MapLevelsRequest();
-		request.setSearchDate(DateFormatUtils.getBasicDay());
+		request.setSqlDate(DateFormatUtils.getThreeDayAgo());
 		try {
 			System.out.println(ipLocationService.getMaskcanvas(request));
 		} catch (Exception e) {
@@ -35,7 +35,7 @@ public class IplocationServiceTest extends BaseTest {
 	@Test
 	public void getLD3() {
 		MapLevelsRequest request = new MapLevelsRequest();
-		request.setSearchDate(DateFormatUtils.getBasicDay());
+		request.setSqlDate(DateFormatUtils.getThreeDayAgo());
 		try {
 			System.out.println(ld3Service.getLD3(request));
 		} catch (Exception e) {

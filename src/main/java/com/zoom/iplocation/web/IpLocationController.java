@@ -19,7 +19,7 @@ import com.zoom.iplocation.utils.ControllerUtils;
 public class IpLocationController {
 	@Autowired
 	private IpLocationService ipLocationService;
-	
+
 	private static Logger LOG = LoggerFactory.getLogger(IpLocationController.class);
 
 	@RequestMapping(value = "/maskcanvas", method = RequestMethod.GET)
@@ -96,7 +96,7 @@ public class IpLocationController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/chartdata", method = RequestMethod.GET)
 	private ModelAndView getChartData(MapLevelsRequest request) {
 		ModelAndView mv = new ModelAndView("chartdata");
@@ -109,7 +109,7 @@ public class IpLocationController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/mapwork", method = RequestMethod.GET)
 	private ModelAndView getMap() {
 		ModelAndView mv = new ModelAndView("mapwork");
@@ -123,14 +123,18 @@ public class IpLocationController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/pointMapWorkajax", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public Object getPointMapWorkajax(@RequestBody MapLevelsRequest request) {
 		JSONObject response = new JSONObject();
 		try {
 			request = ControllerUtils.getBasicMapLevelsRequest(request);
-			response.put("ipData", ipLocationService.getPointMap(request));
+			if (request.getZoomLevel() < 9) {
+				response.put("ipData", ipLocationService.getCountryPoint(request));
+			} else {
+				response.put("ipData", ipLocationService.getCityPoint(request));
+			}
 			response.put("status", true);
 		} catch (Exception e) {
 			response.put("status", false);

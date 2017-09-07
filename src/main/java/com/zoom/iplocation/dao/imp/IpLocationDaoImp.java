@@ -21,10 +21,10 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 	@Override
 	public List<ZmIpDetail> queryLal(MapLevelsRequest request) throws Exception {
 		String sql = "select meeting_id,account_id,latitude,longitude from zmlog.zm_tm_ip_detail_"
-				+ request.getSearchDate() + " where city!='' \r\n" + "        and (latitude between "
-				+ request.getSourtheastLat() + " and " + request.getNorthwestLat() + ") \r\n"
-				+ "        and (longitude between " + request.getNorthwestLng() + " and " + request.getSourtheastLng()
-				+ ")";
+				+ request.getSqlDate() + " where city!='' and (date between '" + request.getStartDate() + "' and '"
+				+ request.getEndDate() + "') and (latitude between " + request.getSourtheastLat() + " and "
+				+ request.getNorthwestLat() + ")" + " and (longitude between " + request.getNorthwestLng() + " and "
+				+ request.getSourtheastLng() + ")";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
 		}
@@ -55,8 +55,10 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryCountry(MapLevelsRequest request) throws Exception {
-		String sql = "select avg(b.latitude) as latitude,avg(b.longitude) as longitude,count(*) as ip_count, a.cn from zmlog.zm_tm_ip_detail_" + request.getSearchDate()
-				+ " as a LEFT JOIN zmlog.zm_cn_location as b on b.cn=a.cn where a.latitude is not null";
+		String sql = "select avg(b.latitude) as latitude,avg(b.longitude) as longitude,count(*) as ip_count, a.cn from zmlog.zm_tm_ip_detail_"
+				+ request.getSqlDate()
+				+ " as a LEFT JOIN zmlog.zm_cn_location as b on b.cn=a.cn where a.latitude is not null and (a.date between '"
+				+ request.getStartDate() + "' and '" + request.getEndDate() + "')";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and a.ip_addr='" + request.getIpAddr() + "'";
 		}
@@ -89,17 +91,51 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryCity(MapLevelsRequest request) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select avg(latitude) as latitude,avg(longitude) as longitude,city,count(ip_addr) as ip_count "
+				+ "from zmlog.zm_tm_ip_detail_" + request.getSqlDate()
+				+ " where city!='' and cn!='' and (latitude between " + request.getSourtheastLat() + " and "
+				+ request.getNorthwestLat() + ") " + " and (longitude between " + request.getNorthwestLng() + " and "
+				+ request.getSourtheastLng() + ") and (date between '" + request.getStartDate() + "' and '"
+				+ request.getEndDate() + "')";
+		if (StringUtils.isNotBlank(request.getIpAddr())) {
+			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getMeetingId())) {
+			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getServerGroup())) {
+			sql = sql + " and server_group='" + request.getServerGroup() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getAccountId())) {
+			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+		}
+		sql = sql + " group by city,cn";
+		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
+		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
+		for (Map<String, Object> row : list) {
+			ZmIpDetail zmIpDetail = new ZmIpDetail();
+			BigDecimal latitude = (BigDecimal) row.get("latitude");
+			zmIpDetail.setLatitude(latitude.doubleValue());
+			BigDecimal longitude = (BigDecimal) row.get("longitude");
+			zmIpDetail.setLongitude(longitude.doubleValue());
+			zmIpDetail.setCity(row.get("city").toString());
+			Long ipCount = (Long) row.get("ip_count");
+			zmIpDetail.setIpCount(ipCount.intValue());
+
+			zmIpDetail.setDescribe("city:" + zmIpDetail.getCity() + ";cn:" + zmIpDetail.getCn());
+
+			zmImDetails.add(zmIpDetail);
+		}
+		return zmImDetails;
 	}
 
 	@Override
 	public List<ZmIpDetail> queryLalGroup(MapLevelsRequest request) throws Exception {
-		String sql = "select latitude,longitude,count(*) as ip_count from zmlog.zm_tm_ip_detail_"
-				+ request.getSearchDate() + " where city!='' \r\n" + "		and (latitude between "
-				+ request.getSourtheastLat() + " and " + request.getNorthwestLat() + ") \r\n"
-				+ "		and (longitude between " + request.getNorthwestLng() + " and " + request.getSourtheastLng()
-				+ ")";
+		String sql = "select latitude,longitude,count(*) as ip_count from zmlog.zm_tm_ip_detail_" + request.getSqlDate()
+				+ " where city!='' " + " and (latitude between " + request.getSourtheastLat() + " and "
+				+ request.getNorthwestLat() + ") " + "		and (longitude between " + request.getNorthwestLng()
+				+ " and " + request.getSourtheastLng() + ") and (date between '" + request.getStartDate() + "' and '"
+				+ request.getEndDate() + "')";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
 		}
@@ -133,13 +169,10 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryLD3(MapLevelsRequest request) throws Exception {
-		// String sql = "select min(b.latitude) as latitude,min(b.longitude) as
-		// longitude,a.city,count(a.ip_addr) as ip_count \r\n"
-		// + " from zmlog.zm_tm_ip_detail_" + request.getSearchDate() + " as a \r\n"
-		// + " LEFT JOIN zmlog.zm_city_location as b on a.city=b.city \r\n"
-		// + " where a.city!='' and a.cn!='' and b.country=a.cn";
 		String sql = "select avg(latitude) as latitude,avg(longitude) as longitude,city,count(ip_addr) as ip_count \r\n"
-				+ "from zmlog.zm_tm_ip_detail_" + request.getSearchDate() + " where city!='' and cn!='' \r\n";
+				+ "from zmlog.zm_tm_ip_detail_" + request.getSqlDate()
+				+ " where city!='' and cn!='' and (date between '" + request.getStartDate() + "' and '"
+				+ request.getEndDate() + "')";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
 			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
 		}

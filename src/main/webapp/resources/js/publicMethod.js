@@ -2,9 +2,9 @@
 // basic map
 var map = L.map("map-canvas", {
 	center : [ 30, 0 ],
-	zoom : 3,
+	zoom : 2,
 	maxZoom : 18,
-	minZoom : 3,
+	minZoom : 2,
 	maxBounds: [[-90, -180],[90, 180]]
 });
 var osm = L
@@ -78,9 +78,15 @@ L.control.layers(baseLayers, overlayLayers).addTo(map);
 function getParams() {
 	var bounds = map.getBounds();
 	var zoomLevels = map.getZoom();
-	var selectDate = $('#startDate').val() || '';
-	if (selectDate == '') {
-		alert("date should not null");
+	var startDate = $('#startDate').val() || '';
+	if (startDate == '') {
+		alert("start date should not null");
+		layer.close(index);
+		return;
+	}
+	var endDate = $('#endDate').val() || '';
+	if (endDate == '') {
+		alert("end date should not null");
 		layer.close(index);
 		return;
 	}
@@ -97,7 +103,8 @@ function getParams() {
 		sourtheastLng : bounds.getEast(),
 		northwestLat : bounds.getNorth(),
 		zoomLevel : zoomLevels,
-		searchDate : selectDate,
+		startDate : startDate,
+		endDate: endDate,
 		ipAddr : ipAddr,
 		meetingId : meetingId,
 		serverGroup: serverGroup,
@@ -145,3 +152,20 @@ function encodeSearchParams(obj) {
 	 })
 	 return params.join('&')
 }
+// compare date
+function compareDate(checkStartDate, checkEndDate) {      
+    var arys1= new Array();      
+    var arys2= new Array();      
+	if(checkStartDate != null && checkEndDate != null) {
+		arys1=checkStartDate.split('-');      
+     	var sdate=new Date(arys1[0],parseInt(arys1[1]-1),arys1[2]);      
+    	arys2=checkEndDate.split('-');      
+    	var edate=new Date(arys2[0],parseInt(arys2[1]-1),arys2[2]);      
+		if(sdate > edate) {      
+    		alert("end date should not less than start date");         
+    		return false;         
+		}  else {   
+    		return true;      
+    	}   
+    }      
+}  

@@ -6,11 +6,13 @@ public class MapLevelsRequest {
 	private Double sourtheastLng;
 	private Double northwestLat;
 	private Integer zoomLevel;
-	private String searchDate;
+	private String startDate;
+	private String endDate;
 	private String ipAddr;
 	private String meetingId;
 	private String serverGroup;
 	private String accountId;
+	private String sqlDate;
 	public Double getNorthwestLng() {
 		return northwestLng;
 	}
@@ -41,12 +43,6 @@ public class MapLevelsRequest {
 	public void setZoomLevel(Integer zoomLevel) {
 		this.zoomLevel = zoomLevel;
 	}
-	public String getSearchDate() {
-		return searchDate;
-	}
-	public void setSearchDate(String searchDate) {
-		this.searchDate = searchDate;
-	}
 	public String getIpAddr() {
 		return ipAddr;
 	}
@@ -70,5 +66,23 @@ public class MapLevelsRequest {
 	}
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getSqlDate() {
+		return sqlDate;
+	}
+	public void setSqlDate(String sqlDate) {
+		this.sqlDate = sqlDate;
 	}
 }
