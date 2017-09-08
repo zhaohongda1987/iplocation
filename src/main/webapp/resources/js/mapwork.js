@@ -24,28 +24,21 @@ $(".btn-search-comment").click(function() {
 });
 
 //on change
-function updateMap() {
+function updateMap(date) {
 	//get map type
 	var mapType = $('#mapType').val();
 	if(mapType=='marker') {
-		updateMarker();
+		updateMarker(date);
 	} else if(mapType=='heat') {
-		updateHeat();
+		updateHeat(date);
 	} else if(mapType=='point') {
-		updatePointMap();
+		updatePointMap(date);
 	}
 	// close iframe
 	if(openIframe!=null) {
 		layer.close(openIframe);
 	}
 };
-$('#endDate').change(function() {
-	var startDate = $('#startDate').val() || '';
-	var endDate = $('#endDate').val() || '';
-	if(compareDate(startDate,endDate)) {
-		updateMap();
-	}
-});
 
 //move change
 var oldZoomLevel = map.getZoom();
@@ -98,12 +91,12 @@ map.on('moveend', function changeZoomLevel() {
 	oldZoomLevel = newZoomLevel;
 });
 // updateMarker
-function updateMarker() {
+function updateMarker(date) {
 	// process loading start
 	var index = layer.load(0, {
 		shade: [0.2,'#2F4056']
 	});
-	var ajaxData = getParams();
+	var ajaxData = getParams(index,date);
 	$.ajax({
 		url : "/iplocation/markerclusterajax",
 		type : "POST",
@@ -191,12 +184,12 @@ function updateProgressBar(processed, total, elapsed, layersArray) {
 }
 
 // update heat
-function updateHeat() {
+function updateHeat(date) {
 	// process loading start
 	var index = layer.load(0, {
 		shade : [ 0.2, '#2F4056' ]
 	});
-	var ajaxData = getParams();
+	var ajaxData = getParams(index,date);
 	$.ajax({
 		url : "/iplocation/heatmapworkajax",
 		type : "POST",
@@ -222,12 +215,12 @@ function translateHeatData(dt) {
 };
 
 // update point map
-function updatePointMap() {
+function updatePointMap(date) {
 	// process loading start
 	var index = layer.load(0, {
 		shade : [ 0.2, '#2F4056' ]
 	});
-	var ajaxData = getParams();
+	var ajaxData = getParams(index,date);
 	$.ajax({
 		url : "/iplocation/pointMapWorkajax",
 		type : "POST",

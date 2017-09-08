@@ -81,7 +81,11 @@
     		,format: 'yyyy-MM-dd'
     		,value: basicDateValue
     		,done: function(value, date){
-    			updateMap();
+    			if(value!="") {
+    				updateMap(value);
+    			} else {
+    				alert("date should not null");
+    			}
     		}
   		});
 	});

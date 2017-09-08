@@ -75,10 +75,13 @@ map.on('exitFullscreen', function(){
 L.control.layers(baseLayers, overlayLayers).addTo(map);
 
 //param
-function getParams() {
+function getParams(index,dateTmp) {
 	var bounds = map.getBounds();
 	var zoomLevels = map.getZoom();
 	var dateRange = $('#dateRange').val() || '';
+	if(dateTmp!=null) {
+		dateRange = dateTmp;
+	}
 	if (dateRange == '') {
 		alert("date should not null");
 		layer.close(index);
