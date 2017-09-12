@@ -1,5 +1,7 @@
 package com.zoom.iplocation.request;
 
+import java.util.List;
+
 public class MapLevelsRequest {
 	private Double northwestLng;
 	private Double sourtheastLat;
@@ -13,6 +15,7 @@ public class MapLevelsRequest {
 	private String serverGroup;
 	private String accountId;
 	private String sqlDate;
+	private List<String> accountType;
 	public Double getNorthwestLng() {
 		return northwestLng;
 	}
@@ -84,5 +87,11 @@ public class MapLevelsRequest {
 	}
 	public void setSqlDate(String sqlDate) {
 		this.sqlDate = sqlDate;
+	}
+	public List<String> getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(List<String> accountType) {
+		this.accountType = accountType;
 	}
 }

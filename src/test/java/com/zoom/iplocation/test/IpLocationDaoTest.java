@@ -2,6 +2,7 @@ package com.zoom.iplocation.test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
@@ -64,5 +65,11 @@ public class IpLocationDaoTest extends BaseTest {
 		} catch(Exception e) {
 			System.err.println(e);
 		}
+	}
+	
+	@Test
+	public void testServerGroupIp() throws Exception {
+		Map<String,Set<String>> result = ipLocationDao.querySeverGroupIp();
+		System.out.println(result.toString());
 	}
 }

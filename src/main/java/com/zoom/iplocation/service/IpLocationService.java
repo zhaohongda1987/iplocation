@@ -1,5 +1,8 @@
 package com.zoom.iplocation.service;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,4 +21,6 @@ public interface IpLocationService {
 	public JSONArray getCountryPoint(MapLevelsRequest request) throws Exception;
 	
 	public JSONArray getCityPoint(MapLevelsRequest request) throws Exception;
+	
+	public JSONObject getServerGroupData() throws Exception;
 }

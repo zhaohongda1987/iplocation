@@ -12,9 +12,7 @@
     <link href="/iplocation/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="/iplocation/resources/css/bootstrap-slider/bootstrap-slider.css" rel="stylesheet" />
 
-    <link href="/iplocation/resources/css/font-awesome/font-awesome.min.css" rel="stylesheet" />
-    <!-- datepicker-->
-    <link rel="stylesheet" type="text/css" href="/iplocation/resources/css/datepicker/bootstrap-datepicker.min.css" />
+    <link href="/iplocation/resources/css/font-awesome/font-awesome.min.css" rel="stylesheet" />   
     <!-- leaflet -->
     <link rel="stylesheet" href="/iplocation/resources/css/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin="" />
     <link rel="stylesheet" href="/iplocation/resources/js/leaflet/fullscreen/Control.FullScreen.css" >
@@ -29,7 +27,8 @@
     <link href="/iplocation/resources/css/style.css" rel="stylesheet">
     <!-- layui -->
     <link href="/iplocation/resources/js/layer/css/layui.css" rel="stylesheet">
-
+	<!-- chosen -->
+	<link href="/iplocation/resources/js/chosen/chosen.min.css" rel="stylesheet">
 </head>
 
 <body>

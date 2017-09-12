@@ -26,6 +26,15 @@ public class ControllerUtils {
 			request.setEndDate(basicDate);
 			request.setSqlDate(DateFormatUtils.getYYYYmm(basicDate));
 		}
+		// check server group
+		if (request.getServerGroup().equals("all")) {
+			request.setServerGroup("");
+		}
+		
+		// check ip
+		if(request.getIpAddr().equals("all")) {
+			request.setIpAddr("");
+		}
 
 		return request;
 	}

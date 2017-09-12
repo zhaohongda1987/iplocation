@@ -117,6 +117,7 @@ public class IpLocationController {
 			MapLevelsRequest request = new MapLevelsRequest();
 			request = ControllerUtils.getBasicMapLevelsRequest(request);
 			mv.addObject("ipData", ipLocationService.getMarkercluster(request));
+			mv.addObject("serverGroupDate", ipLocationService.getServerGroupData());
 		} catch (Exception e) {
 			mv.addObject("ipData", new JSONObject());
 			LOG.error("map work:", e);

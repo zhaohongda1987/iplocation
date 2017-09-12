@@ -5,6 +5,8 @@ public class ZmZcServerGroup {
 	private String address;
 	
 	private String location;
+	
+	private String ipAddr;
 
 	public String getAddress() {
 		return address;
@@ -20,5 +22,13 @@ public class ZmZcServerGroup {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String getIpAddr() {
+		return ipAddr;
+	}
+
+	public void setIpAddr(String ipAddr) {
+		this.ipAddr = ipAddr;
 	}
 }

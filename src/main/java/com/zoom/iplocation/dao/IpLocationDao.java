@@ -2,8 +2,7 @@ package com.zoom.iplocation.dao;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Set;
 
 import com.zoom.iplocation.entity.ZmIpDetail;
 import com.zoom.iplocation.entity.ZmZcServerGroup;
@@ -24,4 +23,6 @@ public interface IpLocationDao {
 	List<Map<String, Object>> querySdkAttendee(String date) throws Exception;
 	
 	void insertServerGroupTmp(List<ZmZcServerGroup> zmZcServerGroupList) throws Exception;
+	
+	Map<String,Set<String>> querySeverGroupIp() throws Exception;
 }

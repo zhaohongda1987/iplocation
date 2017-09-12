@@ -94,6 +94,7 @@ function getParams(index,dateTmp) {
 	if(serverGroup=='all') {
 		serverGroup="";
 	}
+	var accountType = $('#accountType').val() || '';
 	var data = {
 		northwestLng : bounds.getWest(),
 		sourtheastLat : bounds.getSouth(),
@@ -104,7 +105,8 @@ function getParams(index,dateTmp) {
 		ipAddr : ipAddr,
 		meetingId : meetingId,
 		serverGroup: serverGroup,
-		accountId: accountId
+		accountId: accountId,
+		accountType: accountType
 	}
 	return data;
 }

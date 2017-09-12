@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -213,7 +216,7 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 	}
 
 	public void insertServerGroupTmp(List<ZmZcServerGroup> zmZcServerGroupList) throws Exception {
-		String sql = "insert into zmlog.server_group (address,location) values(?,?)";
+		String sql = "insert into zmlog.server_group (address,location,ip_addr) values(?,?,?)";
 		getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
 
 			@Override
@@ -221,6 +224,7 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 				ZmZcServerGroup zmZcServerGroup = zmZcServerGroupList.get(i);
 				ps.setString(1, zmZcServerGroup.getAddress());
 				ps.setString(2, zmZcServerGroup.getLocation());
+				ps.setString(3, zmZcServerGroup.getIpAddr());
 			}
 
 			@Override
@@ -228,5 +232,28 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 				return zmZcServerGroupList.size();
 			}
 		});
+	}
+
+	@Override
+	public Map<String, Set<String>> querySeverGroupIp() throws Exception {
+		String sql = "select ip_addr,location,count(*) as num from zmlog.server_group group by ip_addr,location";
+		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
+
+		Map<String, Set<String>> result = new HashMap<>();
+		for (Map<String, Object> row : list) {
+			if (row.get("location") != null && row.get("ip_addr") != null) {
+				String key = row.get("location").toString();
+				Set<String> setList;
+				if (result.containsKey(key)) {
+					setList = result.get(key);
+					setList.add(row.get("ip_addr").toString());
+				} else {
+					setList = new HashSet<>();
+					setList.add(row.get("ip_addr").toString());
+				}
+				result.put(key, setList);
+			}
+		}
+		return result;
 	}
 }

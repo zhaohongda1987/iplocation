@@ -47,12 +47,22 @@ public class ServerGroupServiceImp implements ServerGroupService {
 					}
 				}
 				zmZcServerGroup.setAddress(ipMap.get("address"));
+				zmZcServerGroup.setIpAddr(ipMap.get("ip"));
+				
 				zmZcServerGroupList.add(zmZcServerGroup);
 			}
 			for(Map<String, String> domainMap : domainList) {
 				ZmZcServerGroup zmZcServerGroup = new ZmZcServerGroup();
 				zmZcServerGroup.setAddress(domainMap.get("address"));
 				zmZcServerGroup.setLocation(domainMap.get("location").toLowerCase());
+				String num = domainMap.get("num");
+				for(Map<String, String> ipMap : ipList) {
+					String ipLastNum = ipMap.get("ipLastNum");
+					if(ipLastNum.equals(num)) {
+						zmZcServerGroup.setIpAddr(ipMap.get("ip"));
+					}
+				}
+				
 				zmZcServerGroupList.add(zmZcServerGroup);
 			}
 			// insert data

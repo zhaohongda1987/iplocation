@@ -15,7 +15,7 @@ public class JDBCDao {
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
 
-		String sql = "insert into zmlog.server_group (address,location) values(?,?)";
+		String sql = "insert into zmlog.server_group (address,location,ip_addr) values(?,?,?)";
 
 		try {
 			dbConnection = getDBConnection();
@@ -24,6 +24,7 @@ public class JDBCDao {
 			for (ZmZcServerGroup zmZcServerGroup : zmZcServerGroupList) {
 				preparedStatement.setString(1, zmZcServerGroup.getAddress());
 				preparedStatement.setString(2, zmZcServerGroup.getLocation());
+				preparedStatement.setString(3, zmZcServerGroup.getIpAddr());
 				preparedStatement.addBatch();
 			}
 			preparedStatement.executeBatch();

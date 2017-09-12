@@ -1,7 +1,10 @@
 package com.zoom.iplocation.service.imp;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -172,6 +175,19 @@ public class IplocationServiceImp implements IpLocationService {
 			}
 			result.put(tmp);
 		}
+		return result;
+	}
+
+	@Override
+	public JSONObject getServerGroupData() throws Exception {
+		Map<String, Set<String>> tmpMap = ipLocationDao.querySeverGroupIp();
+		JSONObject result = new JSONObject();
+		Set<String> allSet = new HashSet<>();
+		for (Map.Entry<String, Set<String>> entry : tmpMap.entrySet()) {
+			result.put(entry.getKey(), entry.getValue());
+			allSet.addAll(entry.getValue());
+		}
+		result.put("all", allSet);
 		return result;
 	}
 }
