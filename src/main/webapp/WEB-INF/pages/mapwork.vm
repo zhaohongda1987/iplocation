@@ -72,7 +72,7 @@
 #parse("/basic_model/footer_js.vm")
 <script>
 	var ipData = ${ipData};
-    var serverGroupDate = ${serverGroupDate}
+    var serverGroupDate = ${serverGroupDate};
 	var basicDate = new Date();
 	basicDate = new Date(basicDate.getTime() - 86400000*3);
 	function getDateStr(dateTmp) {

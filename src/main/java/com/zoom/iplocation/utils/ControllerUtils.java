@@ -27,13 +27,17 @@ public class ControllerUtils {
 			request.setSqlDate(DateFormatUtils.getYYYYmm(basicDate));
 		}
 		// check server group
-		if (request.getServerGroup().equals("all")) {
-			request.setServerGroup("");
+		if (StringUtils.isNotBlank(request.getServerGroup())) {
+			if (request.getServerGroup().equals("all")) {
+				request.setServerGroup("");
+			}
 		}
-		
+
 		// check ip
-		if(request.getIpAddr().equals("all")) {
-			request.setIpAddr("");
+		if (StringUtils.isNotBlank(request.getIpAddr())) {
+			if (request.getIpAddr().equals("all")) {
+				request.setIpAddr("");
+			}
 		}
 
 		return request;

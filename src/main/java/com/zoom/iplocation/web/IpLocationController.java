@@ -120,6 +120,7 @@ public class IpLocationController {
 			mv.addObject("serverGroupDate", ipLocationService.getServerGroupData());
 		} catch (Exception e) {
 			mv.addObject("ipData", new JSONObject());
+			mv.addObject("serverGroupDate", new JSONObject());
 			LOG.error("map work:", e);
 		}
 		return mv;

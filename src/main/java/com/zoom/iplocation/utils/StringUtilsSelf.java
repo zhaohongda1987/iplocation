@@ -50,4 +50,12 @@ public class StringUtilsSelf {
 		ipMap.put("ipLastNum", ipLastNum);
 		return ipMap;
 	}
+	
+	public static boolean numFormat(String input) {;
+		return input.matches("[0-9]{1,}");
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(StringUtilsSelf.numFormat("--9GDN96SKyQuenRQfhJvQ"));
+	}
 }

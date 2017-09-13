@@ -18,18 +18,19 @@ import com.zoom.iplocation.dao.IpLocationDao;
 import com.zoom.iplocation.entity.ZmIpDetail;
 import com.zoom.iplocation.entity.ZmZcServerGroup;
 import com.zoom.iplocation.request.MapLevelsRequest;
+import com.zoom.iplocation.utils.StringUtilsSelf;
 
 public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryLal(MapLevelsRequest request) throws Exception {
-		String sql = "select meeting_id,account_id,latitude,longitude from zmlog.zm_tm_ip_detail_"
+		String sql = "select meeting_id,account_id,latitude,longitude from zmlog.zm_cache_ip_detail_"
 				+ request.getSqlDate() + " where city!='' and (date between '" + request.getStartDate() + "' and '"
 				+ request.getEndDate() + "') and (latitude between " + request.getSourtheastLat() + " and "
 				+ request.getNorthwestLat() + ")" + " and (longitude between " + request.getNorthwestLng() + " and "
 				+ request.getSourtheastLng() + ")";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
-			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
+			sql = sql + " and server_ip_addr='" + request.getIpAddr() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getMeetingId())) {
 			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
@@ -38,7 +39,21 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			sql = sql + " and server_group='" + request.getServerGroup() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
-			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+			if (StringUtilsSelf.numFormat(request.getAccountId())) {
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+			} else {
+				sql = sql + " and account_id='" + request.getAccountId() + "'";
+			}
+		}
+		if (request.getAccountType() != null) {
+			sql = sql + " and account_type in (";
+			for(int i =0;i<request.getAccountType().size();i++) {
+				if(i == request.getAccountType().size()-1) {
+					sql = sql + request.getAccountType().get(i) + ")";
+				} else {
+					sql = sql + request.getAccountType().get(i) + ",";
+				}
+			}
 		}
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
@@ -58,12 +73,12 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryCountry(MapLevelsRequest request) throws Exception {
-		String sql = "select avg(b.latitude) as latitude,avg(b.longitude) as longitude,count(*) as ip_count, a.cn from zmlog.zm_tm_ip_detail_"
+		String sql = "select avg(b.latitude) as latitude,avg(b.longitude) as longitude,count(*) as ip_count, a.cn from zmlog.zm_cache_ip_detail_"
 				+ request.getSqlDate()
 				+ " as a LEFT JOIN zmlog.zm_cn_location as b on b.cn=a.cn where a.latitude is not null and (a.date between '"
 				+ request.getStartDate() + "' and '" + request.getEndDate() + "')";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
-			sql = sql + " and a.ip_addr='" + request.getIpAddr() + "'";
+			sql = sql + " and a.server_ip_addr='" + request.getIpAddr() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getMeetingId())) {
 			sql = sql + " and a.meeting_id='" + request.getMeetingId() + "'";
@@ -72,7 +87,21 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			sql = sql + " and a.server_group='" + request.getServerGroup() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
-			sql = sql + " and a.account_id like'" + request.getAccountId() + "%'";
+			if (StringUtilsSelf.numFormat(request.getAccountId())) {
+				sql = sql + " and a.account_id_num='" + request.getAccountId() + "'";	
+			} else {
+				sql = sql + " and a.account_id='" + request.getAccountId() + "'";
+			}
+		}
+		if (request.getAccountType() != null) {
+			sql = sql + " and a.account_type in (";
+			for(int i =0;i<request.getAccountType().size();i++) {
+				if(i == request.getAccountType().size()-1) {
+					sql = sql + request.getAccountType().get(i) + ")";
+				} else {
+					sql = sql + request.getAccountType().get(i) + ",";
+				}
+			}
 		}
 		sql = sql + " group by a.cn order by ip_count desc";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
@@ -95,13 +124,13 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 	@Override
 	public List<ZmIpDetail> queryCity(MapLevelsRequest request) throws Exception {
 		String sql = "select avg(latitude) as latitude,avg(longitude) as longitude,city,count(ip_addr) as ip_count "
-				+ "from zmlog.zm_tm_ip_detail_" + request.getSqlDate()
+				+ "from zmlog.zm_cache_ip_detail_" + request.getSqlDate()
 				+ " where city!='' and cn!='' and (latitude between " + request.getSourtheastLat() + " and "
 				+ request.getNorthwestLat() + ") " + " and (longitude between " + request.getNorthwestLng() + " and "
 				+ request.getSourtheastLng() + ") and (date between '" + request.getStartDate() + "' and '"
 				+ request.getEndDate() + "')";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
-			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
+			sql = sql + " and server_ip_addr='" + request.getIpAddr() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getMeetingId())) {
 			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
@@ -110,7 +139,21 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			sql = sql + " and server_group='" + request.getServerGroup() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
-			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+			if (StringUtilsSelf.numFormat(request.getAccountId())) {
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+			} else {
+				sql = sql + " and account_id='" + request.getAccountId() + "'";
+			}
+		}
+		if (request.getAccountType() != null) {
+			sql = sql + " and account_type in (";
+			for(int i =0;i<request.getAccountType().size();i++) {
+				if(i == request.getAccountType().size()-1) {
+					sql = sql + request.getAccountType().get(i) + ")";
+				} else {
+					sql = sql + request.getAccountType().get(i) + ",";
+				}
+			}
 		}
 		sql = sql + " group by city,cn";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
@@ -134,13 +177,13 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 
 	@Override
 	public List<ZmIpDetail> queryLalGroup(MapLevelsRequest request) throws Exception {
-		String sql = "select latitude,longitude,count(*) as ip_count from zmlog.zm_tm_ip_detail_" + request.getSqlDate()
-				+ " where city!='' " + " and (latitude between " + request.getSourtheastLat() + " and "
-				+ request.getNorthwestLat() + ") " + "		and (longitude between " + request.getNorthwestLng()
-				+ " and " + request.getSourtheastLng() + ") and (date between '" + request.getStartDate() + "' and '"
-				+ request.getEndDate() + "')";
+		String sql = "select latitude,longitude,count(*) as ip_count from zmlog.zm_cache_ip_detail_"
+				+ request.getSqlDate() + " where city!='' " + " and (latitude between " + request.getSourtheastLat()
+				+ " and " + request.getNorthwestLat() + ") " + "		and (longitude between "
+				+ request.getNorthwestLng() + " and " + request.getSourtheastLng() + ") and (date between '"
+				+ request.getStartDate() + "' and '" + request.getEndDate() + "')";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
-			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
+			sql = sql + " and server_ip_addr='" + request.getIpAddr() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getMeetingId())) {
 			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
@@ -149,9 +192,23 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			sql = sql + " and server_group='" + request.getServerGroup() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
-			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+			if (StringUtilsSelf.numFormat(request.getAccountId())) {
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+			} else {
+				sql = sql + " and account_id='" + request.getAccountId() + "'";
+			}
 		}
-		sql = sql + "		group by latitude,longitude";
+		if (request.getAccountType() != null) {
+			sql = sql + " and account_type in (";
+			for(int i =0;i<request.getAccountType().size();i++) {
+				if(i == request.getAccountType().size()-1) {
+					sql = sql + request.getAccountType().get(i) + ")";
+				} else {
+					sql = sql + request.getAccountType().get(i) + ",";
+				}
+			}
+		}
+		sql = sql + " group by latitude,longitude";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
 		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
 		for (Map<String, Object> row : list) {
@@ -173,11 +230,11 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 	@Override
 	public List<ZmIpDetail> queryLD3(MapLevelsRequest request) throws Exception {
 		String sql = "select avg(latitude) as latitude,avg(longitude) as longitude,city,count(ip_addr) as ip_count \r\n"
-				+ "from zmlog.zm_tm_ip_detail_" + request.getSqlDate()
+				+ "from zmlog.zm_cache_ip_detail_" + request.getSqlDate()
 				+ " where city!='' and cn!='' and (date between '" + request.getStartDate() + "' and '"
 				+ request.getEndDate() + "')";
 		if (StringUtils.isNotBlank(request.getIpAddr())) {
-			sql = sql + " and ip_addr='" + request.getIpAddr() + "'";
+			sql = sql + " and server_ip_addr='" + request.getIpAddr() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getMeetingId())) {
 			sql = sql + " and meeting_id='" + request.getMeetingId() + "'";
@@ -186,7 +243,21 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 			sql = sql + " and server_group='" + request.getServerGroup() + "'";
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
-			sql = sql + " and account_id like'" + request.getAccountId() + "%'";
+			if (StringUtilsSelf.numFormat(request.getAccountId())) {
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+			} else {
+				sql = sql + " and account_id='" + request.getAccountId() + "'";
+			}
+		}
+		if (request.getAccountType() != null) {
+			sql = sql + " and account_type in (";
+			for(int i =0;i<request.getAccountType().size();i++) {
+				if(i == request.getAccountType().size()-1) {
+					sql = sql + request.getAccountType().get(i) + ")";
+				} else {
+					sql = sql + request.getAccountType().get(i) + ",";
+				}
+			}
 		}
 		sql = sql + " group by city,cn";
 		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);

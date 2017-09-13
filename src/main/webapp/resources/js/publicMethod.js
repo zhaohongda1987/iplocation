@@ -94,7 +94,7 @@ function getParams(index,dateTmp) {
 	if(serverGroup=='all') {
 		serverGroup="";
 	}
-	var accountType = $('#accountType').val() || '';
+	var accountType = $('#accountType').val();
 	var data = {
 		northwestLng : bounds.getWest(),
 		sourtheastLat : bounds.getSouth(),
