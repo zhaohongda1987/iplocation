@@ -46,6 +46,7 @@
 						<option value="9">9</option>
 						<option value="10">10</option>
 						<option value="11">11</option>
+						<option value="0">Freemium</option>
 					</select>&nbsp;&nbsp;
 					<label class="search-label" style="font-size:large">Date:</label>
 					<div class="layui-inline">

@@ -40,15 +40,15 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
 			if (StringUtilsSelf.numFormat(request.getAccountId())) {
-				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";
 			} else {
 				sql = sql + " and account_id='" + request.getAccountId() + "'";
 			}
 		}
 		if (request.getAccountType() != null) {
 			sql = sql + " and account_type in (";
-			for(int i =0;i<request.getAccountType().size();i++) {
-				if(i == request.getAccountType().size()-1) {
+			for (int i = 0; i < request.getAccountType().size(); i++) {
+				if (i == request.getAccountType().size() - 1) {
 					sql = sql + request.getAccountType().get(i) + ")";
 				} else {
 					sql = sql + request.getAccountType().get(i) + ",";
@@ -88,15 +88,15 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
 			if (StringUtilsSelf.numFormat(request.getAccountId())) {
-				sql = sql + " and a.account_id_num='" + request.getAccountId() + "'";	
+				sql = sql + " and a.account_id_num='" + request.getAccountId() + "'";
 			} else {
 				sql = sql + " and a.account_id='" + request.getAccountId() + "'";
 			}
 		}
 		if (request.getAccountType() != null) {
 			sql = sql + " and a.account_type in (";
-			for(int i =0;i<request.getAccountType().size();i++) {
-				if(i == request.getAccountType().size()-1) {
+			for (int i = 0; i < request.getAccountType().size(); i++) {
+				if (i == request.getAccountType().size() - 1) {
 					sql = sql + request.getAccountType().get(i) + ")";
 				} else {
 					sql = sql + request.getAccountType().get(i) + ",";
@@ -140,15 +140,15 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
 			if (StringUtilsSelf.numFormat(request.getAccountId())) {
-				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";
 			} else {
 				sql = sql + " and account_id='" + request.getAccountId() + "'";
 			}
 		}
 		if (request.getAccountType() != null) {
 			sql = sql + " and account_type in (";
-			for(int i =0;i<request.getAccountType().size();i++) {
-				if(i == request.getAccountType().size()-1) {
+			for (int i = 0; i < request.getAccountType().size(); i++) {
+				if (i == request.getAccountType().size() - 1) {
 					sql = sql + request.getAccountType().get(i) + ")";
 				} else {
 					sql = sql + request.getAccountType().get(i) + ",";
@@ -193,15 +193,15 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
 			if (StringUtilsSelf.numFormat(request.getAccountId())) {
-				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";
 			} else {
 				sql = sql + " and account_id='" + request.getAccountId() + "'";
 			}
 		}
 		if (request.getAccountType() != null) {
 			sql = sql + " and account_type in (";
-			for(int i =0;i<request.getAccountType().size();i++) {
-				if(i == request.getAccountType().size()-1) {
+			for (int i = 0; i < request.getAccountType().size(); i++) {
+				if (i == request.getAccountType().size() - 1) {
 					sql = sql + request.getAccountType().get(i) + ")";
 				} else {
 					sql = sql + request.getAccountType().get(i) + ",";
@@ -244,15 +244,15 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		}
 		if (StringUtils.isNotBlank(request.getAccountId())) {
 			if (StringUtilsSelf.numFormat(request.getAccountId())) {
-				sql = sql + " and account_id_num='" + request.getAccountId() + "'";	
+				sql = sql + " and account_id_num='" + request.getAccountId() + "'";
 			} else {
 				sql = sql + " and account_id='" + request.getAccountId() + "'";
 			}
 		}
 		if (request.getAccountType() != null) {
 			sql = sql + " and account_type in (";
-			for(int i =0;i<request.getAccountType().size();i++) {
-				if(i == request.getAccountType().size()-1) {
+			for (int i = 0; i < request.getAccountType().size(); i++) {
+				if (i == request.getAccountType().size() - 1) {
 					sql = sql + request.getAccountType().get(i) + ")";
 				} else {
 					sql = sql + request.getAccountType().get(i) + ",";

@@ -39,6 +39,14 @@ public class ControllerUtils {
 				request.setIpAddr("");
 			}
 		}
+		// check accountType
+		if (request.getAccountType() != null && request.getAccountType().size() > 0) {
+			for (String accountTypeStr : request.getAccountType()) {
+				if (accountTypeStr.equals("null")) {
+					request.setAccountType(null);
+				}
+			}
+		}
 
 		return request;
 	}
