@@ -27,8 +27,8 @@
     <link href="/iplocation/resources/css/style.css" rel="stylesheet">
     <!-- layui -->
     <link href="/iplocation/resources/js/layer/css/layui.css" rel="stylesheet">
-	<!-- chosen -->
-	<link href="/iplocation/resources/js/chosen/chosen.min.css" rel="stylesheet">
+	<!-- select2 -->
+	<link href="/iplocation/resources/js/select2/select2.min.css" rel="stylesheet">
 </head>
 
 <body>

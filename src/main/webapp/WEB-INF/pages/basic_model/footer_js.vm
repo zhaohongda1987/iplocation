@@ -14,6 +14,5 @@
 <script src="/iplocation/resources/js/leaflet/fullscreen/Control.FullScreen.js"></script>
 <script src="/iplocation/resources/js/leaflet/easybutton/easy-button.js"></script>
 <script src="/iplocation/resources/js/layer/layui.js"></script>
-<!-- chosen -->
-<script src="/iplocation/resources/js/chosen/chosen.jquery.min.js"></script>
-<script src="/iplocation/resources/js/chosen/chosen.proto.min.js"></script>
+<!-- select 2-->
+<script src="/iplocation/resources/js/select2/select2.min.js"></script>

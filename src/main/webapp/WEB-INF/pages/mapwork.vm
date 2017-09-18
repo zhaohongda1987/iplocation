@@ -13,40 +13,28 @@
             	<div class="div-search" >
             		<label class="search-label" style="font-size:large">Map Type:</label>
 					<select class="search-select" name="mapType" id="mapType" onchange="updateMap()">
-						<option value="marker">marker map</option>
+						<option value="marker">marker map&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
 						<option value="heat">heat map</option>
 						<option value="point">point map</option>
 					</select>&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">DC:</label>
 					<select class="search-select" name="serverSelect" id="serverSelect" onchange="updateMap()">
-						<option value="all">all</option>
-						<option value="sy">sy</option>
-						<option value="am">am</option>
-						<option value="gs">gs</option>
-						<option value="ny">ny</option>
-						<option value="tj">tj</option>
-						<option value="hk">hk</option>
-						<option value="mb">mb</option>
-						<option value="sc">sc</option>
-						<option value="sp">sp</option>
+						<option value="all">ALL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+						<option value="sy">SY</option>
+						<option value="am">AM</option>
+						<option value="gs">GS</option>
+						<option value="ny">NY</option>
+						<option value="tj">TJ</option>
+						<option value="hk">HK</option>
+						<option value="mb">MB</option>
+						<option value="sc">SC</option>
+						<option value="sp">SP</option>
 					</select>&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">IP(MMR/BCS):</label>
                 	<select id="ipAddr" onchange="updateMap()">
                 	</select>&nbsp;&nbsp;
                 	<label class="search-label" style="font-size:large">AccountType:</label>
-					<select multiple class="chosen-select" id="accountType">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="0">Freemium</option>
+					<select multiple="multiple" class="chosen-select" id="accountType">
 					</select>&nbsp;&nbsp;
 					<label class="search-label" style="font-size:large">Date:</label>
 					<div class="layui-inline">
@@ -108,12 +96,69 @@
 	});
 	
 	// chose server group and map type
-	$("#mapType").chosen({width: "6%"});
-	$("#serverSelect").chosen({width: "4%"});
-	$("#accountType").chosen({
-		placeholder_text_multiple:"Select Some Options"
-		,width: "8%"
-	}); 
+	$("#mapType").select2();
+	$("#serverSelect").select2();
+  	var accountTypeArray = [
+    		{
+      			"id": 1000001,
+      			"text": "Free GROUP"
+    		},
+    		{
+      			"id": 1000002,
+      			"text": "Paid GROUP"
+    		},
+    		{
+      			"id": 0,
+      			"text": "Freemium"
+    		},
+    		{
+      			"id": 1,
+      			"text": "Free with CC"
+    		},
+    		{
+      			"id": 2,
+      			"text": "Free without CC"
+    		},
+    		{
+      			"id": 3,
+      			"text": "Pro"
+    		},
+    		{
+      			"id": 4,
+      			"text": "Enterprise"
+    		},
+    		{
+      			"id": 5,
+      			"text": "API Partner"
+    		},
+    		{
+      			"id": 6,
+      			"text": "Education"
+    		},
+    		{
+      			"id": 7,
+      			"text": "Biz"
+    		},
+    		{
+      			"id": 8,
+      			"text": "Free Trial"
+    		},
+    		{
+      			"id": 9,
+      			"text": "VIP"
+    		},
+    		{
+      			"id": 10,
+      			"text": "BulkLicense"
+    		},
+    		{
+      			"id": 11,
+      			"text": "Zoom Room"
+    		}
+  		];
+	var accountTypeSelect = $("#accountType").select2({
+		data: accountTypeArray
+	});
 	setServerGroupSelect("all",serverGroupDate);
 
     // server group change
@@ -130,8 +175,8 @@
             });
             $('#ipAddr').html(strVersion).show().prev().show();
             // chosen
-            $("#ipAddr").chosen("destroy");
-			$("#ipAddr").chosen({});
+            $("#ipAddr").select2();
+			$("#ipAddr").select2();
         }
     };
 </script>

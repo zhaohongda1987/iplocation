@@ -150,3 +150,62 @@ function encodeSearchParams(obj) {
 	 })
 	 return params.join('&')
 }
+
+$('#accountType').on('select2:select', function (e) {
+    var data = e.params.data;
+    accountTypeControl(data,true)
+});
+
+$('#accountType').on('select2:unselect', function (e) {
+    var data = e.params.data;
+    accountTypeControl(data,false)
+});
+
+function accountTypeControl(data,disabledTmp) {
+	if(data.id==1000001) {
+    	for(var i=0;i<accountTypeArray.length;i++) {
+    		var tmpId = accountTypeArray[i].id;
+    		if(tmpId==0 || tmpId==1 || tmpId==2) {
+    			var newOption = new Option(accountTypeArray[i].text, tmpId, false, false);
+    			newOption.disabled=disabledTmp;
+    			$("#accountType option[value='"+tmpId+"']").remove();
+    			$('#accountType').append(newOption).trigger('change');
+    		}
+    	}    	
+    }
+    if(data.id==1000002) {
+    	for(var i=0;i<accountTypeArray.length;i++) {
+    		var tmpId = accountTypeArray[i].id;
+    		if(tmpId==3||tmpId==4||tmpId==5||tmpId==6||tmpId==7||tmpId==8||tmpId==9||tmpId==10
+    				||tmpId==11) {
+    			var newOption = new Option(accountTypeArray[i].text, tmpId, false, false);
+    			newOption.disabled=disabledTmp;
+    			$("#accountType option[value='"+tmpId+"']").remove();
+    			$('#accountType').append(newOption).trigger('change');
+    		}
+    	}    	
+    }
+    if(data.id==0||data.id==1||data.id==2) {
+    	for(var i=0;i<accountTypeArray.length;i++) {
+    		var tmpId = accountTypeArray[i].id;
+    		if(tmpId==1000001) {
+    			var newOption = new Option(accountTypeArray[i].text, tmpId, false, false);
+    			newOption.disabled=disabledTmp;
+    			$("#accountType option[value='"+tmpId+"']").remove();
+    			$('#accountType').append(newOption).trigger('change');
+    		}
+    	}    
+    }
+    if(data.id==3||data.id==4||data.id==5||data.id==6||data.id==7||data.id==8||data.id==9
+    		||data.id==10||data.id==11) {
+    	for(var i=0;i<accountTypeArray.length;i++) {
+    		var tmpId = accountTypeArray[i].id;
+    		if(tmpId==1000002) {
+    			var newOption = new Option(accountTypeArray[i].text, tmpId, false, false);
+    			newOption.disabled=disabledTmp;
+    			$("#accountType option[value='"+tmpId+"']").remove();
+    			$('#accountType').append(newOption).trigger('change');
+    		}
+    	}    
+    }
+}
