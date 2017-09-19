@@ -13,6 +13,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.util.CollectionUtils;
 
 import com.zoom.iplocation.dao.IpLocationDao;
 import com.zoom.iplocation.entity.ZmIpDetail;
@@ -93,7 +94,7 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 				sql = sql + " and a.account_id='" + request.getAccountId() + "'";
 			}
 		}
-		if (request.getAccountType() != null) {
+		if (request.getAccountType() != null && !CollectionUtils.isEmpty(request.getAccountType())) {
 			sql = sql + " and a.account_type in (";
 			for (int i = 0; i < request.getAccountType().size(); i++) {
 				if (i == request.getAccountType().size() - 1) {
