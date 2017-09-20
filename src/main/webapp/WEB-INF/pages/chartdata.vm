@@ -16,7 +16,7 @@
   	</ul>
   	<div class="layui-tab-content">
     	<div class="layui-tab-item layui-show">
-        	<table class="layui-table" id="layui-table"></table>
+        	<table class="layui-table" id="layui-table" lay-filter="table-filter"></table>
     	</div>
     	<div class="layui-tab-item">
     		<div id="pieChart" style="min-width: 700px; height: 400px"></div>
@@ -25,97 +25,11 @@
   	<script src="/iplocation/resources/js/layer/layui.js" charset="utf-8"></script>
   	<script src="/iplocation/resources/js/echart/echarts-all.js" charset="utf-8"></script>
   	<script>
-    var chartData = ${chartData};
-    layui.use(['element', 'table'], function(){
-      var $ = layui.jquery
-      ,element = layui.element
-      ,table = layui.table;
-      
-      // hash get lay id
-      var layId = location.hash.replace(/^#docDemoTabBrief=/, '');
-      element.tabChange('docDemoTabBrief', layId);
-      element.on('tab(docDemoTabBrief)', function(){
-      	var id = this.getAttribute('lay-id');
-      	if(id==2) {
-      		drawPie(chartData.pieData);
-      	}
-      });
-      // table
-      table.render({
-        elem: '#layui-table',
-        cols: [[
-          {checkbox: true, fixed: true}
-          ,{field:'country', title: 'country', width:160, sort: true, fixed: true}
-          ,{field:'num', title: 'num', width:120, sort: true, fixed: true}
-        ]]
-        ,data: chartData.tableData
-        ,page: true
-        ,loading: true
-        ,skin: 'line'
-        ,even: true
-      });
-      // pie chart
-      var drawPie = function(config) {
-      	var myChart = echarts.init(document.getElementById("pieChart"));
-      	option = {
-        	title : {
-          		text: 'Country Data',
-          		subtext: 'top 10',
-          		x:'center'
-        	},
-        	tooltip : {
-        		trigger: 'item',
-        		formatter: "{a} <br/>{b} : {c} ({d}%)"
-    		},
-        	legend : {
-          		orient : 'vertical',
-          		x : 'left',
-          		data : config.legend
-        	},
-        	toolbox: {
-        		show : true,
-        		feature : {
-            		mark : {show: true},
-            		dataView : {show: true, readOnly: false},
-            		magicType : {
-                		show: true, 
-                		type: ['pie', 'funnel'],
-                		option: {
-                    		funnel: {
-                        		x: '25%',
-                        		width: '50%',
-                        		funnelAlign: 'left',
-                        		max: config.max,
-                        		tooltip : {
-        							trigger: 'item',
-        							formatter: "{a} <br/>{b} : {c}"
-    							}
-                    		}
-                		}
-            		},
-            		restore : {show: true},
-            		saveAsImage : {show: true}
-        		}
-    		},
-    		calculable : true,
-        	series : [ {
-          		name : 'Country Name',
-          		type : 'pie',
-          		radius : '55%',
-          		center : [ '50%', '60%' ],
-          		data : config.data
-        	} ]
-      	};
-      	myChart.setOption(option);
-      };
-      // active
-      var active = {
-        tabChange: function(){
-          // change tab
-          element.tabChange();
-        }
-      };
-    });
+    	var chartData = ${chartData};
     </script>
+    <script src="/iplocation/resources/js/chartdata.js" charset="utf-8"></script>
+    <script type="text/html" id="barDemo">
+  		<a class="layui-btn layui-btn-mini" lay-event="detail">user trend</a>
+	</script>
 </body>
 </html>

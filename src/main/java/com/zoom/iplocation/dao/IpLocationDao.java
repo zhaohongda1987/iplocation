@@ -25,4 +25,6 @@ public interface IpLocationDao {
 	void insertServerGroupTmp(List<ZmZcServerGroup> zmZcServerGroupList) throws Exception;
 	
 	Map<String,Set<String>> querySeverGroupIp() throws Exception;
+	
+	List<ZmIpDetail> queryLineData(MapLevelsRequest request) throws Exception;
 }

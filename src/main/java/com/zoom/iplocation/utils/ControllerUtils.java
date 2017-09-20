@@ -71,6 +71,11 @@ public class ControllerUtils {
 			}
 			request.setAccountType(accountTypeListNew);
 		}
+		
+		// check cn
+		if(StringUtils.isNotBlank(request.getCn()) && request.getCn().equals("ALL")) {
+			request.setCn(null);
+		}
 
 		return request;
 	}

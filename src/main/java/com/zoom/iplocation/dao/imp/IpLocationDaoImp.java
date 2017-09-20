@@ -121,6 +121,59 @@ public class IpLocationDaoImp extends JdbcDaoSupport implements IpLocationDao {
 		}
 		return zmImDetails;
 	}
+	
+	@Override
+	public List<ZmIpDetail> queryLineData(MapLevelsRequest request) throws Exception {
+		String sql = "select avg(b.latitude) as latitude,avg(b.longitude) as longitude,count(*) as ip_count, a.date from zmlog.zm_cache_ip_detail_"
+				+ request.getSqlDate()
+				+ " as a LEFT JOIN zmlog.zm_cn_location as b on b.cn=a.cn where a.latitude is not null and (a.date between '"
+				+ request.getStartDate() + "' and '" + request.getEndDate() + "')";
+		if (StringUtils.isNotBlank(request.getIpAddr())) {
+			sql = sql + " and a.server_ip_addr='" + request.getIpAddr() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getMeetingId())) {
+			sql = sql + " and a.meeting_id='" + request.getMeetingId() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getServerGroup())) {
+			sql = sql + " and a.server_group='" + request.getServerGroup() + "'";
+		}
+		if (StringUtils.isNotBlank(request.getAccountId())) {
+			if (StringUtilsSelf.numFormat(request.getAccountId())) {
+				sql = sql + " and a.account_id_num='" + request.getAccountId() + "'";
+			} else {
+				sql = sql + " and a.account_id='" + request.getAccountId() + "'";
+			}
+		}
+		if (request.getAccountType() != null && !CollectionUtils.isEmpty(request.getAccountType())) {
+			sql = sql + " and a.account_type in (";
+			for (int i = 0; i < request.getAccountType().size(); i++) {
+				if (i == request.getAccountType().size() - 1) {
+					sql = sql + request.getAccountType().get(i) + ")";
+				} else {
+					sql = sql + request.getAccountType().get(i) + ",";
+				}
+			}
+		}
+		if(StringUtils.isNotBlank(request.getCn())) {
+			sql = sql + " and a.cn='" + request.getCn() + "'";
+		}
+		sql = sql + " group by a.date order by a.date";
+		List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
+		List<ZmIpDetail> zmImDetails = new ArrayList<ZmIpDetail>();
+		for (Map<String, Object> row : list) {
+			ZmIpDetail zmIpDetail = new ZmIpDetail();
+			zmIpDetail.setDate(row.get("date").toString());
+			Long ipCount = (Long) row.get("ip_count");
+			zmIpDetail.setIpCount(ipCount.intValue());
+			BigDecimal latitude = (BigDecimal) row.get("latitude");
+			zmIpDetail.setLatitude(latitude.doubleValue());
+			BigDecimal longitude = (BigDecimal) row.get("longitude");
+			zmIpDetail.setLongitude(longitude.doubleValue());
+
+			zmImDetails.add(zmIpDetail);
+		}
+		return zmImDetails;
+	}
 
 	@Override
 	public List<ZmIpDetail> queryCity(MapLevelsRequest request) throws Exception {

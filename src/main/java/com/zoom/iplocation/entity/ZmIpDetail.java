@@ -13,6 +13,7 @@ public class ZmIpDetail {
 	private String regionName;
 	private Integer dataSource;
 	private String describe;
+	private String date;
 	/**
 	 * 聚集在一个点的IP总数
 	 */
@@ -89,5 +90,11 @@ public class ZmIpDetail {
 	}
 	public void setDescribe(String describe) {
 		this.describe = describe;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
 	}
 }

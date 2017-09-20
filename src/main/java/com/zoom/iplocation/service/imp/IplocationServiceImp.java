@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,28 @@ public class IplocationServiceImp implements IpLocationService {
 		pieChart.put("data", data);
 		result.put("tableData", tableArray);
 		result.put("pieData", pieChart);
+		return result;
+	}
+	
+	public JSONObject getLineData(MapLevelsRequest request) throws Exception {
+		JSONObject result = new JSONObject();
+		List<ZmIpDetail> zmIpDetails = ipLocationDao.queryLineData(request);
+		JSONArray dateArray = new JSONArray();
+		JSONArray countArray = new JSONArray();
+		JSONArray legendArray = new JSONArray();
+		for (ZmIpDetail zmIpDetail : zmIpDetails) {
+			dateArray.put(zmIpDetail.getDate());
+			countArray.put(zmIpDetail.getIpCount());
+		}
+		result.put("dateArray", dateArray);
+		result.put("countArray", countArray);
+		if(StringUtils.isNotBlank(request.getCn())) {
+			legendArray.put(request.getCn());
+		} else {
+			legendArray.put("ALL");
+		}
+		result.put("cn", legendArray);	
+		
 		return result;
 	}
 

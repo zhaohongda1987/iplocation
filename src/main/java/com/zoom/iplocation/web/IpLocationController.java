@@ -105,7 +105,20 @@ public class IpLocationController {
 			mv.addObject("chartData", ipLocationService.getChartData(request));
 		} catch (Exception e) {
 			mv.addObject("chartData", new JSONObject());
-			LOG.error("markercluster:", e);
+			LOG.error("chartData:", e);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/linechart", method = RequestMethod.GET)
+	private ModelAndView getLineChart(MapLevelsRequest request) {
+		ModelAndView mv = new ModelAndView("linechart");
+		try {
+			request = ControllerUtils.getBasicMapLevelsRequest(request);
+			mv.addObject("lineData", ipLocationService.getLineData(request));
+		} catch (Exception e) {
+			mv.addObject("lineData", new JSONObject());
+			LOG.error("lineData:", e);
 		}
 		return mv;
 	}

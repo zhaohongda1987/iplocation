@@ -16,6 +16,7 @@ public class MapLevelsRequest {
 	private String accountId;
 	private String sqlDate;
 	private List<String> accountType;
+	private String cn;
 	public Double getNorthwestLng() {
 		return northwestLng;
 	}
@@ -93,5 +94,11 @@ public class MapLevelsRequest {
 	}
 	public void setAccountType(List<String> accountType) {
 		this.accountType = accountType;
+	}
+	public String getCn() {
+		return cn;
+	}
+	public void setCn(String cn) {
+		this.cn = cn;
 	}
 }
